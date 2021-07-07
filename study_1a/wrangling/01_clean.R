@@ -3,6 +3,7 @@ library(dplyr)
 library(magrittr)
 library(readxl)
 library(stringr)
+library(readr)
 
 # read in data from survey monkey, part 1. rename columns and remove unnecessary
 # and potentially identifiable.
@@ -74,7 +75,7 @@ d_sm_1 %<>%
                   dplyr::across('age',
                                 as.integer))
 
-# recode financial fine to dollars
+# recode verbal financial fine descriptions to dollars
 d_sm_1$assess_fine[d_sm_1$assess_fine ==
                    paste0('Nothing, it was clearly an accident. She did',
                           ' not intend to light the table on fire. The',
@@ -277,7 +278,7 @@ d_sm_2 %<>%
                   dplyr::across('age',
                                 as.integer))
 
-# recode financial fine to dollars
+# recode verbal financial fine descriptions to dollars
 d_sm_2$assess_fine[d_sm_2$assess_fine == "None, maybe don't use candles..." &
                    !is.na(d_sm_2$assess_fine)] <- '0'
 
@@ -296,3 +297,22 @@ d_sm_2$assess_fine %<>%
                              replacement = '') %>%
     as.numeric(.)
 
+# read in prolific data, part 1. remove unnecessary columns.
+d_prolific_1 <- readr::read_csv(here::here('data',
+                                           'raw',
+                                           'prolific',
+                                           'study_1a_prolific_pt1.csv')) %>%
+    janitor::clean_names(.) %>%
+    dplyr::select(.,
+                  'prolific_id' = participant_id,
+                  status)
+
+# read in prolific data, part 2. remove unnecessary columns.
+d_prolific_2 <- readr::read_csv(here::here('data',
+                                           'raw',
+                                           'prolific',
+                                           'study_1a_prolific_pt2.csv')) %>%
+    janitor::clean_names(.) %>%
+    dplyr::select(.,
+                  'prolific_id' = participant_id,
+                  status)
