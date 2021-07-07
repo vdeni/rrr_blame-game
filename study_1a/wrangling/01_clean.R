@@ -72,3 +72,131 @@ d_sm_1 %<>%
     dplyr::mutate(.,
                   dplyr::across('age',
                                 as.integer))
+
+# recode financial fine to dollars
+d_sm_1$assess_fine[d_sm_1$assess_fine ==
+                   paste0('Nothing, it was clearly an accident. She did',
+                          ' not intend to light the table on fire. The',
+                          ' restaurant should avoid using candles from',
+                          ' now on.') & !is.na(d_sm_1$assess_fine)] <- '0'
+
+d_sm_1$assess_fine[d_sm_1$assess_fine ==
+                   paste0('Having candles at the table is an assumed risk.',
+                          ' Zero $.') & !is.na(d_sm_1$assess_fine)] <- '0'
+
+d_sm_1$assess_fine[d_sm_1$assess_fine == 'nothing. it was an accident.' &
+                       !is.na(d_sm_1$assess_fine)] <- '0'
+
+d_sm_1$assess_fine[d_sm_1$assess_fine ==
+                   paste0("What kind of insurance policy does not cover minor",
+                          " fires?! Ew. But I'd say most if not all of it.",
+                          " Accidents happen absolutely but her accident could",
+                          " have cost them a lot more than a table cloth.") &
+                       !is.na(d_sm_1$assess_fine)] <- '0'
+
+d_sm_1$assess_fine[d_sm_1$assess_fine == 'None' &
+                       !is.na(d_sm_1$assess_fine)] <- '0'
+
+d_sm_1$assess_fine[d_sm_1$assess_fine == paste0('I think she should only',
+                                                ' have to pay half of that') &
+                       !is.na(d_sm_1$assess_fine)] <- '750'
+
+d_sm_1$assess_fine[d_sm_1$assess_fine ==
+                   paste0('The full $1,500, the fire was her fault even',
+                          ' though it was an accident.') &
+                       !is.na(d_sm_1$assess_fine)] <- '1500'
+
+d_sm_1$assess_fine[d_sm_1$assess_fine ==
+                   paste0('I feel she needs to pay little to none',
+                          ' so I would say $200') &
+                       !is.na(d_sm_1$assess_fine)] <- '200'
+
+d_sm_1$assess_fine[d_sm_1$assess_fine ==
+                   paste0('That seems like something the restaurant skills ',
+                          'be prepared for, especially if they have candles. ',
+                          'She should only pay for half') &
+                       !is.na(d_sm_1$assess_fine)] <- '750'
+
+d_sm_1$assess_fine[d_sm_1$assess_fine == '90%' &
+                       !is.na(d_sm_1$assess_fine)] <- '1350'
+
+d_sm_1$assess_fine[d_sm_1$assess_fine ==
+                   paste0("Half since they shouldn't have open flames ",
+                          "on the tables without insurance in the first ",
+                          "place.") &
+                       !is.na(d_sm_1$assess_fine)] <- '750'
+
+d_sm_1$assess_fine[d_sm_1$assess_fine == 'Half' &
+                       !is.na(d_sm_1$assess_fine)] <- '750'
+
+d_sm_1$assess_fine[d_sm_1$assess_fine ==
+                   paste0("That depends on Mrs. Smith's financial state. ",
+                          "It seems perfectly reasonable to me that the ",
+                          "restaurant repects her to help pay for the damages, ",
+                          "even though the fire was started entirely by ",
+                          "accident, but it wouldn't be reasonable for them ",
+                          "to expect her to pay the entire amount if it ",
+                          "wasn't within her financial means.") &
+                       !is.na(d_sm_1$assess_fine)] <- NA
+
+d_sm_1$assess_fine[d_sm_1$assess_fine == 'Full amount.' &
+                       !is.na(d_sm_1$assess_fine)] <- '1500'
+
+d_sm_1$assess_fine[d_sm_1$assess_fine == '60dcb2daf4fb4762bb1bfb0e' &
+                       !is.na(d_sm_1$assess_fine)] <- NA
+
+d_sm_1$assess_fine[d_sm_1$assess_fine ==
+                   paste0("I don't believe she should be responsible ",
+                          "for the cost.") &
+                       !is.na(d_sm_1$assess_fine)] <- '0'
+
+d_sm_1$assess_fine[d_sm_1$assess_fine == 'the cost of the tablecloth' &
+                       !is.na(d_sm_1$assess_fine)] <- NA
+
+d_sm_1$assess_fine[d_sm_1$assess_fine == 'All' &
+                       !is.na(d_sm_1$assess_fine)] <- '1500'
+
+d_sm_1$assess_fine[d_sm_1$assess_fine ==
+                   paste0("None, there was no malice. That's against fire ",
+                          "code, they should have made the flame less ",
+                          "accessible or had the flame on non ",
+                          "flammable things.") &
+                       !is.na(d_sm_1$assess_fine)] <- '0'
+
+d_sm_1$assess_fine[d_sm_1$assess_fine ==
+                   'Pay it all up front or payments each month' &
+                       !is.na(d_sm_1$assess_fine)] <- '1500'
+
+d_sm_1$assess_fine[d_sm_1$assess_fine ==
+                   paste0('Nothing--if her insurance covers it, that ',
+                          'would be great but there should  be some blame on ',
+                          'the restaurant as well.') &
+                       !is.na(d_sm_1$assess_fine)] <- '0'
+
+d_sm_1$assess_fine[d_sm_1$assess_fine ==
+                   'the bill is very hig' &
+                       !is.na(d_sm_1$assess_fine)] <- NA
+
+d_sm_1$assess_fine[d_sm_1$assess_fine ==
+                   'If found legally responsible then 100%' &
+                       !is.na(d_sm_1$assess_fine)] <- NA
+
+d_sm_1$assess_fine[d_sm_1$assess_fine ==
+                   paste0('It was not intentional. And the restaurant ',
+                          'chose to have candles on their tables knowing ',
+                          'the inherent risk. Therefore, cost should be ',
+                          'divided in half by Mrs. Smith and the restaurant.') &
+                       !is.na(d_sm_1$assess_fine)] <- '750'
+
+d_sm_1$assess_fine[d_sm_1$assess_fine ==
+                   paste0('Mrs. Smith should have to Pay only for damages ',
+                          'to the carpet.') &
+                       !is.na(d_sm_1$assess_fine)] <- NA
+
+d_sm_1$assess_fine[d_sm_1$assess_fine ==
+                   paste0('None, the restaurant should not have open ',
+                          'flames on the table.') &
+                       !is.na(d_sm_1$assess_fine)] <- '0'
+
+d_sm_1$assess_fine[d_sm_1$assess_fine == '1' &
+                       !is.na(d_sm_1$assess_fine)] <- NA
