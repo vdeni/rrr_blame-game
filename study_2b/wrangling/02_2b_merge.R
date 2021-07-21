@@ -1,7 +1,7 @@
 library(here)
 
 source(here::here('wrangling',
-                  '01_clean.R'))
+                  '01_2b_clean.R'))
 
 # merge to single tibble
 d_sm <- dplyr::bind_rows(d_sm_1,

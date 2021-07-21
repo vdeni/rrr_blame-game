@@ -1,7 +1,7 @@
 library(here)
 
 source(here::here('wrangling',
-                  '02_merge.R'))
+                  '02_2b_merge.R'))
 
 d %<>%
     dplyr::filter(.,
@@ -10,4 +10,4 @@ d %<>%
 readr::write_csv(d,
                  here::here('data',
                             'clean',
-                            'study_1a.csv'))
+                            'study_2b.csv'))
