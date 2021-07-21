@@ -5,6 +5,7 @@ library(magrittr)
 library(readxl)
 library(stringr)
 library(readr)
+library(tidyr)
 
 # read in data from survey monkey, part 1. rename columns and remove unnecessary
 # and potentially identifiable.
@@ -54,6 +55,47 @@ d_sm_1 %<>%
     dplyr::mutate(.,
                   dplyr::across('age',
                                 as.integer))
+
+# recode gender to strings
+d_sm_1 %<>%
+    dplyr::mutate(.,
+                  dplyr::
+                  across('gender',
+                         ~dplyr::
+                         case_when(.x == '1' ~ 'male',
+                                   .x == '2' ~ 'female',
+                                   .x == '3' ~ 'other',
+                                   .x == '4' ~ 'I prefer not to answer',
+                                   TRUE ~ NA_character_)))
+
+# recode experimental situation to strings
+d_sm_1 %<>%
+    dplyr::mutate(.,
+                  dplyr::
+                  across('experimental_situation',
+                         ~dplyr::
+                         case_when(.x == 1 ~ 'agentive_blame1',
+                                   .x == 2 ~ 'agentive_blame4',
+                                   .x == 3 ~ 'agentive_blame7',
+                                   .x == 4 ~ 'nonagentive_blame1',
+                                   .x == 5 ~ 'nonagentive_blame4',
+                                   .x == 6 ~ 'nonagentive_blame7')))
+
+# split experimental situation into two columns
+d_sm_1 %<>%
+    tidyr::separate(.,
+                    col = experimental_situation,
+                    into = c('agency', 'blame_level'),
+                    sep = '_',
+                    remove = T) %>%
+    dplyr::mutate(.,
+                  dplyr::across(blame_level,
+                                str_replace,
+                                pattern = 'blame',
+                                replacement = '')) %>%
+    dplyr::mutate(.,
+                  dplyr::across(c(blame_level, agency),
+                                as.factor))
 
 # recode verbal financial fine descriptions to dollars
 d_sm_1$assess_fine[d_sm_1$assess_fine ==
@@ -191,7 +233,43 @@ d_sm_2 %<>%
                   dplyr::across('age',
                                 as.integer))
 
-unique(d_sm_2$assess_fine)
+# recode gender to strings
+d_sm_2 %<>%
+    dplyr::mutate(.,
+                  dplyr::
+                  across('gender',
+                         ~dplyr::
+                         case_when(.x == '1' ~ 'male',
+                                   .x == '2' ~ 'female',
+                                   .x == '3' ~ 'other',
+                                   .x == '4' ~ 'I prefer not to answer',
+                                   TRUE ~ NA_character_)))
+
+# recode experimental situation to strings
+d_sm_2 %<>%
+    dplyr::mutate(.,
+                  dplyr::
+                  across('experimental_situation',
+                         ~dplyr::
+                         case_when(.x == 1 ~ 'agentive_blame1',
+                                   .x == 2 ~ 'agentive_blame7',
+                                   .x == 3 ~ 'nonagentive_blame4')))
+
+# split experimental situation into two columns
+d_sm_2 %<>%
+    tidyr::separate(.,
+                    col = experimental_situation,
+                    into = c('agency', 'blame_level'),
+                    sep = '_',
+                    remove = T) %>%
+    dplyr::mutate(.,
+                  dplyr::across(blame_level,
+                                str_replace,
+                                pattern = 'blame',
+                                replacement = '')) %>%
+    dplyr::mutate(.,
+                  dplyr::across(c(blame_level, agency),
+                                as.factor))
 
 # recode verbal financial fine descriptions to dollars
 d_sm_2$assess_fine[d_sm_2$assess_fine ==
