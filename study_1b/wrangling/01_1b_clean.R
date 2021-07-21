@@ -40,10 +40,8 @@ d_sm_1 %<>%
                   dplyr::across(.cols = 'informed_consent',
                                 .fns =
                                     ~dplyr::
-                                    case_when(stringr::
-                                              str_detect(.x,
-                                                         'I have read.*') ~ T,
-                                                          TRUE ~ F)))
+                                    case_when(.x == '1' ~ T,
+                                              TRUE ~ F)))
 
 # recode assessments to pure numeric
 d_sm_1 %<>%
@@ -178,10 +176,7 @@ d_sm_2 %<>%
     dplyr::mutate(.,
                   dplyr::
                   across(.cols = 'informed_consent',
-                         .fns = ~dplyr::case_when(stringr::
-                                                  str_detect(.x,
-                                                             'I have read.*') ~
-                                                      T,
+                         .fns = ~dplyr::case_when(.x == '1' ~ T,
                                                   TRUE ~ F)))
 
 # recode assessments to pure numeric
