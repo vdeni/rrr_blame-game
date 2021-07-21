@@ -216,9 +216,6 @@ d_sm_1$assess_fine %<>%
     stringr::str_replace_all(.,
                              pattern = ',',
                              replacement = '') %>%
-    stringr::str_replace_all(.,
-                             pattern = '\\.\\d+',
-                             replacement = '') %>%
     as.numeric(.)
 
 # read in data from survey monkey, part 2. rename columns and remove unnecessary
@@ -254,6 +251,7 @@ d_sm_2 <- readxl::read_xlsx(here::here('data',
 # recode informed consent to logical
 d_sm_2 %<>%
     dplyr::mutate(.,
+                  dplyr::
                   across(.cols = 'informed_consent',
                          .fns = ~dplyr::case_when(stringr::
                                                   str_detect(.x,
@@ -291,9 +289,6 @@ d_sm_2$assess_fine %<>%
                       side = 'both') %>%
     stringr::str_replace_all(.,
                              pattern = ',',
-                             replacement = '') %>%
-    stringr::str_replace_all(.,
-                             pattern = '\\.\\d+',
                              replacement = '') %>%
     as.numeric(.)
 
