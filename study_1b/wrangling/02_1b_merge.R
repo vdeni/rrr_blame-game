@@ -22,3 +22,8 @@ d %<>%
     dplyr::select(.,
                   -c('status',
                      'prolific_id'))
+
+readr::write_csv(d,
+                 here::here('data',
+                            'clean',
+                            'study_1b.csv'))
