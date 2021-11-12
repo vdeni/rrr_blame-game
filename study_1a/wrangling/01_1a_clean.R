@@ -3,6 +3,7 @@ library(dplyr)
 library(magrittr)
 library(readxl)
 library(stringr)
+library(readr)
 
 # read in data from survey monkey, part 1. rename columns and remove unnecessary
 # and potentially identifiable.
@@ -250,3 +251,22 @@ d_sm$assess_fine[d_sm$assess_fine == 'ovisi' &
                      !is.na(d_sm$assess_fine)] <- NA
 
 # clean fines
+d_sm$assess_fine %<>%
+    stringr::str_replace_all(.,
+                             '\\s',
+                             '') %>%
+    str_replace(.,
+                'kn|kuna',
+                '') %>%
+    str_replace(.,
+                '4,000',
+                '4000') %>%
+    str_replace(.,
+                '971,43',
+                '971.43') %>%
+    as.numeric(.)
+
+readr::write_csv(here('study_1a',
+                      'data',
+                      'clean',
+                      'study_1a.csv'))
