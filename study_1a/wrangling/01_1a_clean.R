@@ -266,7 +266,8 @@ d_sm$assess_fine %<>%
                 '971.43') %>%
     as.numeric(.)
 
-readr::write_csv(here('study_1a',
+readr::write_csv(d_sm,
+                 here('study_1a',
                       'data',
                       'clean',
                       'study_1a.csv'))
