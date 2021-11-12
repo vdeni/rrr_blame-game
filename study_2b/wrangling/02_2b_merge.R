@@ -1,6 +1,7 @@
 library(here)
 
-source(here::here('wrangling',
+source(here::here('study_2b',
+                  'wrangling',
                   '01_2b_clean.R'))
 
 # merge to single tibble
@@ -24,6 +25,7 @@ d %<>%
                      'prolific_id'))
 
 readr::write_csv(d,
-                 here::here('data',
+                 here::here('study_2b',
+                            'data',
                             'clean',
                             'study_2b.csv'))
