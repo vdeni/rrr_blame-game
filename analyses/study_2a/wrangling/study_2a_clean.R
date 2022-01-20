@@ -49,6 +49,12 @@ d_sm %<>%
                   dplyr::across('age',
                                 as.integer))
 
+# replace ages below 18 with NA
+d_sm %<>%
+    dplyr::mutate(.,
+                  dplyr::across('age',
+                                ~ifelse(.x < 18, NA, .x)))
+
 # recode gender to strings
 d_sm %<>%
     dplyr::mutate(.,
