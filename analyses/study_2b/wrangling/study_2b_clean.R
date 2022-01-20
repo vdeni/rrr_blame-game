@@ -9,7 +9,8 @@ library(tidyr)
 
 # read in data from survey monkey, part 1. rename columns and remove unnecessary
 # and potentially identifiable.
-d_sm_1 <- readxl::read_xlsx(here::here('study_2b',
+d_sm_1 <- readxl::read_xlsx(here::here('analyses',
+                                       'study_2b',
                                        'data',
                                        'raw',
                                        'survey',
@@ -188,7 +189,8 @@ d_sm_1$assess_fine %<>%
 
 # read in data from survey monkey, part 2. rename columns and remove unnecessary
 # and potentially identifiable.
-d_sm_2 <- readxl::read_xlsx(here::here('study_2b',
+d_sm_2 <- readxl::read_xlsx(here::here('analyses',
+                                       'study_2b',
                                        'data',
                                        'raw',
                                        'survey',
@@ -298,7 +300,8 @@ d_sm_2$assess_fine %<>%
     as.numeric(.)
 
 # read in prolific data, part 1. remove unnecessary columns.
-d_prolific_1 <- readr::read_csv(here::here('study_2b',
+d_prolific_1 <- readr::read_csv(here::here('analyses',
+                                           'study_2b',
                                            'data',
                                            'raw',
                                            'prolific',
@@ -309,7 +312,8 @@ d_prolific_1 <- readr::read_csv(here::here('study_2b',
                   status)
 
 # read in prolific data, part 2. remove unnecessary columns.
-d_prolific_2 <- readr::read_csv(here::here('study_2b',
+d_prolific_2 <- readr::read_csv(here::here('analyses',
+                                           'study_2b',
                                            'data',
                                            'raw',
                                            'prolific',

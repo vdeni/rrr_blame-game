@@ -1,6 +1,7 @@
 library(here)
 
-source(here::here('study_2b',
+source(here::here('analyses',
+                  'study_2b',
                   'wrangling',
                   'study_2b_clean.R'))
 
@@ -25,7 +26,8 @@ d %<>%
                      'prolific_id'))
 
 readr::write_csv(d,
-                 here::here('study_2b',
+                 here::here('analyses',
+                            'study_2b',
                             'data',
                             'clean',
                             'study_2b.csv'))

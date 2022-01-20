@@ -10,7 +10,8 @@ library(haven)
 
 # read in data from survey monkey. rename columns and remove unnecessary
 # and potentially identifiable.
-d_sm <- haven::read_sav(here::here('study_2a',
+d_sm <- haven::read_sav(here::here('analyses',
+                                   'study_2a',
                                    'data',
                                    'raw',
                                    'survey',
@@ -316,7 +317,8 @@ d_sm$assess_fine %<>%
     as.numeric(.)
 
 readr::write_csv(d_sm,
-                 here('study_2a',
+                 here('analyses',
+                      'study_2a',
                       'data',
                       'clean',
                       'study_2a.csv'))

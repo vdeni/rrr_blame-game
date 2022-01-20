@@ -70,6 +70,19 @@ agentive description of the event, and
 `r filter(d_s1a, experimental_situation == 'nonagentive') %>% nrow(.)` read
 the nonagentive description of the event.
 
+```{r s1a-demo}
+.gender <- table(d_s1a$gender)
+```
+
+The participants were students from the Faculty of Humanities and Social
+Sciences of the University of Zagreb, Croatia. Of the `r nrow(d_s1a)`
+participants whose data were analysed, `r .gender['woman']` declared themselves
+as women, `r .gender['man']` as men, `r .gender['other']` chose "other", and
+`r .gender['do not want to disclose']` chose not to disclose the information.
+The median age of the participants whose data was analysed and who listed
+their age was `r median(d_s1a$age, na.rm = T)` (with a range from
+`r min(d_s1a$age, na.rm = T)` to `r max(d_s1a$age, na.rm = T)`).
+
 ## Study 1b
 
 ```{r s1b-data}
@@ -110,6 +123,18 @@ the analysis. Of the `r nrow(d_s1b)` participants,
 agentive description of the event, and
 `r filter(d_s1b, experimental_situation == 'nonagentive') %>% nrow(.)` read
 the nonagentive description of the event.
+
+```{r s1b-demo}
+.gender <- table(d_s1b$gender)
+```
+
+The participants were recruited through Prolific.
+Of the `r nrow(d_s1b)`
+participants whose data were analysed, `r .gender['Female']` declared themselves
+as women, `r .gender['Male']` as men, and `r .gender['Other']` chose "other".
+The median age of the participants whose data was analysed and who listed
+their age was `r median(d_s1b$age, na.rm = T)` (with a range from
+`r min(d_s1b$age, na.rm = T)` to `r max(d_s1b$age, na.rm = T)`).
 
 ## Study 2a
 
