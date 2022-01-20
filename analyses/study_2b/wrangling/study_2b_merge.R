@@ -2,7 +2,7 @@ library(here)
 
 source(here::here('study_2b',
                   'wrangling',
-                  '01_2b_clean.R'))
+                  'study_2b_clean.R'))
 
 # merge to single tibble
 d_sm <- dplyr::bind_rows(d_sm_1,
