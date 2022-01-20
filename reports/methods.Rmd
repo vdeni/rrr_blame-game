@@ -242,7 +242,7 @@ d_s2b %<>%
 In total, `r .n_start` people decided to participate in this study.
 Of those, `r .gthan` participants responded that the fine should be greater
 than or equal to `r .financial_fine_lim_usd` USD, and were therefore excluded.
-Additionaly, `r .nas` participants did not state a fine, and so were excluded.
+Additionally, `r .nas` participants did not state a fine, and so were excluded.
 This left us with `r nrow(d_s2b)` participants.
 
 ```{r s2b-per-group}
@@ -261,3 +261,15 @@ participants read the agentive description of the event. Of those,
 `r filter(.group_n, agency == 'nonagentive') %>% glue::glue_data(.,
 '{n} were assigned to blame level {blame_level}')`.
 
+```{r s2b-demo}
+.gender <- table(d_s2b$gender)
+```
+
+The participants were recruited through Prolific.
+Of the `r nrow(d_s2b)`
+participants whose data were analysed, `r .gender['female']` declared themselves
+as women, `r .gender['male']` as men, `r .gender['other']` chose "other",
+and `r .gender['I prefer not to answer']` did not disclose any information.
+The median age of the participants whose data was analysed and who listed
+their age was `r median(d_s2b$age, na.rm = T)` (with a range from
+`r min(d_s2b$age, na.rm = T)` to `r max(d_s2b$age, na.rm = T)`).
