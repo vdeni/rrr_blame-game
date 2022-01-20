@@ -150,7 +150,7 @@ d_s2a %<>%
 
 In total, `r .n_start` people decided to participate in this study. None of
 the participants responded that the fine should be greater than
-or equal to `r .financial_fine_lim_hrk`. However, `r .nas` participants
+or equal to `r .financial_fine_lim_hrk` HRK. However, `r .nas` participants
 did not state a fine, and were therefore excluded. Furthermore,
 `r .partic_similar` participants stated that they have recently participated
 in a similar study (or have not answered to that question), and so were also
@@ -172,5 +172,53 @@ participants read the agentive description of the event. Of those,
 `r filter(.group_n, agency == 'nonagentive') %>% glue::glue_data(.,
 '{n} were assigned to blame level {blame_level}')`.
 
-
 ## Study 2b
+
+```{r s2b-data}
+d_s2b <- readr::read_csv(here('analyses',
+                              'study_2b',
+                              'data',
+                              'clean',
+                              'study_2b.csv'))
+
+.n_start <- nrow(d_s2b)
+
+# get count of participants who have entered values above the exclusion criterion
+.gthan <- dplyr::filter(d_s2b,
+                        assess_fine >= .financial_fine_lim_usd
+                            & !is.na(assess_fine)) %>%
+    nrow(.)
+
+# get count of participants who have not entered both assessments
+.nas <- dplyr::filter(d_s2b,
+                      is.na(assess_fine)) %>%
+    nrow(.)
+
+# filter out participants who haven't provided any of the two assessments
+d_s2b %<>%
+    filter(.,
+            !is.na(assess_fine))
+```
+
+In total, `r .n_start` people decided to participate in this study.
+Of those, `r .gthan` participants responded that the fine should be greater
+than or equal to `r .financial_fine_lim_usd` USD, and were therefore excluded.
+Additionaly, `r .nas` participants did not state a fine, and so were excluded.
+This left us with `r nrow(d_s2b)` participants.
+
+```{r s2b-per-group}
+.group_n <- d_s2b %>%
+    count(.,
+          agency,
+          blame_level)
+```
+
+In total, `r filter(d_s2b, agency == 'agentive') %>% nrow(.)` participants read
+the agentive description of the event. Of those, 
+`r filter(.group_n, agency == 'agentive') %>% glue::glue_data(.,
+'{n} were assigned to blame level {blame_level}')`.
+In total, `r filter(d_s2b, agency == 'nonagentive') %>% nrow(.)`
+participants read the agentive description of the event. Of those, 
+`r filter(.group_n, agency == 'nonagentive') %>% glue::glue_data(.,
+'{n} were assigned to blame level {blame_level}')`.
+
