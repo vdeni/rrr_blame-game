@@ -102,47 +102,19 @@ their age was `r median(d_s1b$age, na.rm = T)` (with a range from
 ## Study 2a
 
 ```{r s2a-data}
-d_s2a <- readr::read_csv(here('analyses',
-                              'study_2a',
-                              'data',
-                              'clean',
-                              'study_2a.csv'))
-
-.n_start <- nrow(d_s2a)
-
-# get count of participants who have entered values above the exclusion criterion
-.gthan <- dplyr::filter(d_s2a,
-                        assess_fine >= .fine_lim_hrk
-                            & !is.na(assess_fine)) %>%
-    nrow(.)
-
-# get count of participants who have not entered both assessments
-.nas <- dplyr::filter(d_s2a,
-                      is.na(assess_fine)) %>%
-    nrow(.)
-
-# filter out participants who haven't provided any of the two assessments
-d_s2a %<>%
-    filter(.,
-            !is.na(assess_fine))
-
-.partic_similar <- d_s2a %>%
-    filter(.,
-           recently_participated_similar %in% c(NA, 2)) %>%
-    nrow(.)
-
-d_s2a %<>%
-        filter(.,
-               !recently_participated_similar %in% c(NA, 2))
+source(here('analyses',
+            'study_2a',
+            'wrangling',
+            'study_2a_prepare-analysis-data.R'))
 ```
 
-In total, `r .n_start` people decided to participate in this study. None of
-the participants responded that the fine should be greater than
-or equal to `r .fine_lim_hrk` HRK. However, `r .nas` participants
-did not state a fine, and were therefore excluded. Furthermore,
-`r .partic_similar` participants stated that they have recently participated
-in a similar study (or have not answered to that question), and so were also
-excluded. This left us with `r nrow(d_s2a)` participants.
+In total, `r .d_s2a_nstart` people decided to participate in this study. None
+of the participants responded that the fine should be greater than or equal to
+`r .fine_lim_hrk` HRK. However, `r .d_s2a_nas` participants did not state a
+fine, and were therefore excluded. Furthermore, `r .d_s2a_partic_similar`
+participants stated that they have recently participated in a similar study (or
+have not answered to that question), and so were also excluded. This left us
+with `r nrow(d_s2a)` participants.
 
 ```{r s2a-per-group}
 .group_n <- d_s2a %>%
