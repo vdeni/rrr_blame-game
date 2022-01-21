@@ -109,10 +109,10 @@
     },
     "glue": {
       "Package": "glue",
-      "Version": "1.4.2",
+      "Version": "1.6.0",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "6efd734b14c6471cfe443345f3e35e29"
+      "Hash": "b8bb7aaf248e45bac08ebed86f3a0aa4"
     },
     "haven": {
       "Package": "haven",
