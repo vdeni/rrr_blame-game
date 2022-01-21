@@ -67,35 +67,17 @@ their age was `r median(d_s1a$age, na.rm = T)` (with a range from
 ## Study 1b
 
 ```{r s1b-data}
-d_s1b <- readr::read_csv(here('analyses',
-                              'study_1b',
-                              'data',
-                              'clean',
-                              'study_1b.csv'))
-
-.n_start <- nrow(d_s1b)
-
-# get count of participants who have entered values above the exclusion criterion
-.gthan <- dplyr::filter(d_s1b,
-                        assess_fine >= .fine_lim_usd
-                            & !is.na(assess_fine)) %>%
-    nrow(.)
-
-# get count of participants who have not entered both assessments
-.nas <- dplyr::filter(d_s1b,
-                      is.na(assess_fine) | is.na(assess_blame)) %>%
-    nrow(.)
-
-# filter out participants who haven't provided any of the two assessments
-d_s1b %<>%
-    filter(.,
-            !is.na(assess_fine) & !is.na(assess_blame))
+source(here::here('analyses',
+                  'study_1b',
+                  'wrangling',
+                  'study_1b_prepare-analysis-data.R'))
 ```
 
-In total, `r .n_start` people decided to participate in the study. As was
+In total, `r .d_s1b_nstart` people decided to participate in the study. As was
 stated earlier, we have decided to exclude participants who have entered a
 fine greater than or equal to `r .fine_lim_usd` USD. One of the
-participants met the exclusion criterion. Furthermore, `r .nas` participants were
+participants met the exclusion criterion. Furthermore, `r .d_s1b_nas`
+participants were
 excluded because they have not responded to questions regarding the assessment
 of blame or the assessment of the fine. These exclusions left us
 with `r nrow(d_s1b)` participants who have provided the data necessary for

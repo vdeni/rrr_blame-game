@@ -42,4 +42,5 @@ vignettes/*.pdf
 
 **/.Rprofile
 **/.~lock*
-analyses/reports/*docx
+
+analyses/reports/*.docx
