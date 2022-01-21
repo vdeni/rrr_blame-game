@@ -16,13 +16,22 @@ S2B_WRAN=study_2b/wrangling/
 ## >>>>> abstract
 
 .PHONY:\
-	study_1a_data
+	study_1a_data\
+	reports
 
 study_1a_data:\
 	$(S1A_DATA)clean/study_1a.csv
+
+reports:\
+	reports/methods.docx
 
 ## >>>>> concrete
 $(S1A_DATA)clean/study_1a.csv: $(S1A_WRAN)study_1a_clean.R\
 	$(S1A_DATA)raw/survey/study_1a_data.xlsx\
 	renv.lock
 	Rscript $<
+
+reports/%.docx: reports/%.Rmd\
+	study_1a_data\
+	$(S1A_WRAN)study_1a_prepare-analysis-data.R
+	Rscript -e 'rmarkdown::render("$<")'
