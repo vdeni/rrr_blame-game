@@ -13,6 +13,7 @@ renv::activate()
 library(dplyr)
 library(magrittr)
 library(ggplot2)
+library(tidyr)
 
 knitr::opts_chunk$set(device = 'png',
                       dpi = 300,
@@ -22,13 +23,69 @@ knitr::opts_chunk$set(device = 'png',
 options(scipen = 5,
         digits = 3)
 
-.financial_fine_lim_hrk <- 10200
-.financial_fine_lim_usd <- 4500
+.fine_lim_hrk <- 10200
+.fine_lim_usd <- 4500
+
+ggplot2::theme_set(theme_minimal())
+
+source(here('analyses',
+            'helpers',
+            'helpers_plot.R'))
 ```
 
 # Analyses
 
 ## Study 1a
+
+```{r s1a-load-data}
+source(here::here('analyses',
+                  'study_1a',
+                  'wrangling',
+                  'study_1a_prepare-analysis-data.R'))
+```
+
+```{r s1a-plot-assessments}
+.p_data <- d_s1a %>%
+    tidyr::pivot_longer(.,
+                        cols = c('assess_fine',
+                                 'assess_blame'),
+                        names_pattern = 'assess_(\\w+)',
+                        names_to = 'assessment',
+                        values_to = 'value')
+
+
+.summary <- dplyr::group_by(.p_data,
+                            assessment,
+                            experimental_situation) %>%
+    dplyr::summarise(.,
+                     m = mean(value))
+
+ggplot2::ggplot(.p_data,
+                aes(x = experimental_situation,
+                    y = value)) +
+    ggplot2::facet_wrap('assessment',
+                        scales = 'free_y') +
+    ggplot2::geom_point(size = 3,
+                        alpha = .4,
+                        position = ggplot2::position_jitter(width = .25,
+                                                            height = 0)) +
+    geom_point(inherit.aes = F,
+               data = .summary,
+               aes(x = experimental_situation,
+                   y = m),
+               shape = 4,
+               stroke = 2,
+               size = 5) +
+    scale_y_continuous(limits = setLimitsHRK,
+                       breaks = setBreaksMajorHRK)
+```
+
+The groups that read the agentive and the nonagentive description of the
+event were compared on the amount fined and blame level assessment using a
+one-sided t-test. Following the findings of the original study, we assumed
+that reading the agentive description of the event would lead to a higher
+fine and higher assessed blame level; this direction was also posited in the
+one-sided t-tests.
 
 ## Study 1b
 
