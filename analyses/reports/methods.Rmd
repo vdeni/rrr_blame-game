@@ -128,11 +128,11 @@ with `r nrow(d_s2a)` participants.
 ```
 
 In total, `r filter(d_s2a, agency == 'agentive') %>% nrow(.)` participants read
-the agentive description of the event. Of those, 
+the agentive description of the event. Of those,
 `r filter(.group_n, agency == 'agentive') %>% glue::glue_data(.,
 '{n} were assigned to blame level {blame_level}')`.
 In total, `r filter(d_s2a, agency == 'nonagentive') %>% nrow(.)`
-participants read the agentive description of the event. Of those, 
+participants read the agentive description of the event. Of those,
 `r filter(.group_n, agency == 'nonagentive') %>% glue::glue_data(.,
 '{n} were assigned to blame level {blame_level}')`.
 
@@ -155,36 +155,17 @@ their age was `r median(d_s2a$age, na.rm = T)` (with a range from
 ## Study 2b
 
 ```{r s2b-data}
-d_s2b <- readr::read_csv(here('analyses',
-                              'study_2b',
-                              'data',
-                              'clean',
-                              'study_2b.csv'))
-
-.n_start <- nrow(d_s2b)
-
-# get count of participants who have entered values above the exclusion criterion
-.gthan <- dplyr::filter(d_s2b,
-                        assess_fine >= .fine_lim_usd
-                            & !is.na(assess_fine)) %>%
-    nrow(.)
-
-# get count of participants who have not entered both assessments
-.nas <- dplyr::filter(d_s2b,
-                      is.na(assess_fine)) %>%
-    nrow(.)
-
-# filter out participants who haven't provided any of the two assessments
-d_s2b %<>%
-    filter(.,
-            !is.na(assess_fine))
+source(here('analyses',
+            'study_2b',
+            'wrangling',
+            'study_2b_prepare-analysis-data.R'))
 ```
 
-In total, `r .n_start` people decided to participate in this study.
-Of those, `r .gthan` participants responded that the fine should be greater
+In total, `r .d_s2b_nstart` people decided to participate in this study. Of
+those, `r .d_s2b_ngthan` participants responded that the fine should be greater
 than or equal to `r .fine_lim_usd` USD, and were therefore excluded.
-Additionally, `r .nas` participants did not state a fine, and so were excluded.
-This left us with `r nrow(d_s2b)` participants.
+Additionally, `r .d_s2b_nas` participants did not state a fine, and so were
+excluded. This left us with `r nrow(d_s2b)` participants.
 
 ```{r s2b-per-group}
 .group_n <- d_s2b %>%
@@ -194,11 +175,11 @@ This left us with `r nrow(d_s2b)` participants.
 ```
 
 In total, `r filter(d_s2b, agency == 'agentive') %>% nrow(.)` participants read
-the agentive description of the event. Of those, 
+the agentive description of the event. Of those,
 `r filter(.group_n, agency == 'agentive') %>% glue::glue_data(.,
 '{n} were assigned to blame level {blame_level}')`.
 In total, `r filter(d_s2b, agency == 'nonagentive') %>% nrow(.)`
-participants read the agentive description of the event. Of those, 
+participants read the agentive description of the event. Of those,
 `r filter(.group_n, agency == 'nonagentive') %>% glue::glue_data(.,
 '{n} were assigned to blame level {blame_level}')`.
 
@@ -210,7 +191,9 @@ The participants were recruited through Prolific.
 Of the `r nrow(d_s2b)`
 participants whose data were analysed, `r .gender['female']` declared themselves
 as women, `r .gender['male']` as men, `r .gender['other']` chose "other",
-and `r .gender['I prefer not to answer']` did not disclose any information.
+and `r .gender['I prefer not to answer']` stated that they prefer not to answer
+(`r sum(is.na(d_s2b$gender))` participant left the question unanswered).
 The median age of the participants whose data was analysed and who listed
 their age was `r median(d_s2b$age, na.rm = T)` (with a range from
-`r min(d_s2b$age, na.rm = T)` to `r max(d_s2b$age, na.rm = T)`).
+`r min(d_s2b$age, na.rm = T)` to `r max(d_s2b$age, na.rm = T)`;
+N = `r sum(!is.na(d_s2b$age))`).
