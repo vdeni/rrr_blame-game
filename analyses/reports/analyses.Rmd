@@ -30,6 +30,10 @@ options(scipen = 5,
 
 ggplot2::theme_set(theme_minimal())
 
+ggplot2::theme_update(strip.background = ggplot2::element_rect(fill = 'grey'),
+                      panel.spacing.y = unit(x = 20,
+                                             units = 'pt'))
+
 source(here('analyses',
             'helpers',
             'helpers_plot.R'))
@@ -60,13 +64,13 @@ source(here::here('analyses',
                             assessment,
                             experimental_situation) %>%
     dplyr::summarise(.,
-                     m = mean(value),
-                     med = median(value))
+                     m = mean(value))
 
 ggplot2::ggplot(.p_data,
                 aes(x = experimental_situation,
                     y = value)) +
     ggplot2::facet_wrap('assessment',
+                        strip.position = 'right',
                         scales = 'free_y',
                         nrow = 2) +
     ggplot2::geom_point(size = 1.5,
@@ -81,8 +85,7 @@ ggplot2::ggplot(.p_data,
                stroke = 1,
                size = 3) +
     ggplot2::scale_y_continuous(limits = setLimitsHRK,
-                                breaks = setBreaksMajor) +
-    ggplot2::theme(strip.background = ggplot2::element_rect(fill = 'grey'))
+                                breaks = setBreaksMajor)
 ```
 
 The groups that read the agentive and the nonagentive description of the
@@ -162,13 +165,13 @@ source(here::here('analyses',
                             assessment,
                             experimental_situation) %>%
     dplyr::summarise(.,
-                     m = mean(value),
-                     med = median(value))
+                     m = mean(value))
 
 ggplot2::ggplot(.p_data,
                 aes(x = experimental_situation,
                     y = value)) +
     ggplot2::facet_wrap('assessment',
+                        strip.position = 'right',
                         scales = 'free_y',
                         nrow = 2) +
     ggplot2::geom_point(size = 1.5,
@@ -183,8 +186,7 @@ ggplot2::ggplot(.p_data,
                stroke = 1,
                size = 3) +
     ggplot2::scale_y_continuous(limits = setLimitsHRK,
-                                breaks = setBreaksMajor) +
-    ggplot2::theme(strip.background = ggplot2::element_rect(fill = 'grey'))
+                                breaks = setBreaksMajor)
 ```
 
 The groups that read the agentive and the nonagentive description of the
@@ -239,5 +241,38 @@ p = `r t_blame$p.value`,
 95\% \text{CI} = [`r t_blame$conf.int[1]`, `r t_blame$conf.int[2]`]$)
 
 ## Study 2a
+
+```{r s2a-load-data}
+source(here::here('analyses',
+                  'study_2a',
+                  'wrangling',
+                  'study_2a_prepare-analysis-data.R'))
+```
+
+```{r s2a-plot-assessments, fig.cap='Individual responses to the proposed fine and stated level of blame (jittered horizontally). The X-es represent each group\'s mean value.'}
+.summary <- dplyr::group_by(d_s2a,
+                            agency,
+                            blame_level) %>%
+    dplyr::summarise(.,
+                     m = mean(assess_fine))
+
+ggplot2::ggplot(d_s2a,
+                aes(x = blame_level,
+                    y = assess_fine)) +
+    ggplot2::facet_wrap('agency',
+                        strip.position = 'right',
+                        nrow = 2) +
+    ggplot2::geom_point(size = 1.5,
+                        alpha = .4,
+                        position = ggplot2::position_jitter(width = .25,
+                                                            height = 0)) +
+    geom_point(inherit.aes = F,
+               data = .summary,
+               aes(x = blame_level,
+                   y = m),
+               shape = 4,
+               stroke = 1,
+               size = 3)
+```
 
 ## Study 2b

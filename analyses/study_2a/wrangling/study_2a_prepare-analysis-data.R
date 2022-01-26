@@ -32,3 +32,8 @@ d_s2a %<>%
            !recently_participated_similar %in% c(NA, 2))
 
 .d_s2a_partic_similar <- .d_s2a_nstart - .d_s2a_ngthan - .d_s2a_nas - nrow(d_s2a)
+
+d_s2a %<>%
+    dplyr::mutate(.,
+                  dplyr::across('blame_level',
+                                as.factor))
