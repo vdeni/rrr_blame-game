@@ -10,14 +10,6 @@ setLimitsUSD <- function(x) {
     }
 }
 
-# setBreaksMajorUSD <- function (x) {
-#     if (max(x) > 7) {
-#         return(seq(0,
-#                    1500,
-#                    by = 500))
-#     }
-# }
-
 setLimitsHRK <- function(x) {
     if (max(x) > 7) {
         .upper <- ceiling(max(x) / 500) * 500
@@ -30,7 +22,7 @@ setLimitsHRK <- function(x) {
     }
 }
 
-setBreaksMajorHRK <- function (x) {
+setBreaksMajor <- function (x) {
     if (max(x) > 8) {
         return(seq(0,
                    max(x),

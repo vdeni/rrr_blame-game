@@ -31,7 +31,8 @@ data:\
 	$(S2B_DATA)clean/study_2b.csv
 
 reports:\
-	reports/methods.docx
+	reports/methods.docx\
+	reports/analyses.docx
 
 ## >>>>> concrete
 $(S1A_DATA)clean/study_1a.csv:\
