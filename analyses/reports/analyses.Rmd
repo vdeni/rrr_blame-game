@@ -92,7 +92,7 @@ that reading the agentive description of the event would lead to a higher
 fine and higher assessed blame level; this direction was also posited in the
 one-sided t-tests.
 
-```{r t-test}
+```{r s1a-t-test}
 t_fine <- t.test(assess_fine ~ experimental_situation,
                  d_s1a,
                  alternative = 'greater',
@@ -123,6 +123,89 @@ p = `r t_blame$p.value`,
 95\% \text{CI} = [`r t_blame$conf.int[1]`, `r t_blame$conf.int[2]`]$)
 
 ## Study 1b
+
+```{r s1b-load-data}
+source(here::here('analyses',
+                  'study_1b',
+                  'wrangling',
+                  'study_1b_prepare-analysis-data.R'))
+```
+
+```{r s1b-plot-assessments, fig.cap='Individual responses to the proposed fine and stated level of blame (jittered horizontally). The X-es represent each group\'s mean value.'}
+.p_data <- d_s1b %>%
+    tidyr::pivot_longer(.,
+                        cols = c('assess_fine',
+                                 'assess_blame'),
+                        names_pattern = 'assess_(\\w+)',
+                        names_to = 'assessment',
+                        values_to = 'value')
+
+
+.summary <- dplyr::group_by(.p_data,
+                            assessment,
+                            experimental_situation) %>%
+    dplyr::summarise(.,
+                     m = mean(value),
+                     med = median(value))
+
+ggplot2::ggplot(.p_data,
+                aes(x = experimental_situation,
+                    y = value)) +
+    ggplot2::facet_wrap('assessment',
+                        scales = 'free_y',
+                        nrow = 2) +
+    ggplot2::geom_point(size = 1.5,
+                        alpha = .4,
+                        position = ggplot2::position_jitter(width = .25,
+                                                            height = 0)) +
+    geom_point(inherit.aes = F,
+               data = .summary,
+               aes(x = experimental_situation,
+                   y = m),
+               shape = 4,
+               stroke = 1,
+               size = 3) +
+    ggplot2::scale_y_continuous(limits = setLimitsHRK,
+                                breaks = setBreaksMajor) +
+    ggplot2::theme(strip.background = ggplot2::element_rect(fill = 'grey'))
+```
+
+The groups that read the agentive and the nonagentive description of the
+event were compared on the amount fined and blame level assessment using a
+one-sided t-test. Following the findings of the original study, we assumed
+that reading the agentive description of the event would lead to a higher
+fine and higher assessed blame level; this direction was also posited in the
+one-sided t-tests.
+
+```{r s1b-t-test}
+t_fine <- t.test(assess_fine ~ experimental_situation,
+                 d_s1b,
+                 alternative = 'greater',
+                 var.equal = T,
+                 paired = F,
+                 confidence.interval = .95)
+
+t_blame <- t.test(assess_blame ~ experimental_situation,
+                  d_s1b,
+                  alternative = 'greater',
+                  var.equal = T,
+                  paired = F,
+                  confidence.interval = .95)
+```
+
+Comparing the amounts fined by the two groups, we obtain a t-test that is
+significant at the .05 level
+($\Delta = `r t_fine$estimate[1] - t_fine$estimate[2]` \text{USD},
+t(`r t_fine$parameter`) = `r t_fine$statistic`,
+p = `r t_fine$p.value`,
+95\% \text{CI} = [`r t_fine$conf.int[1]`, `r t_fine$conf.int[2]`]$)
+
+Comparing the level of blame assessed by the two groups, we obtain a t-test
+that is significant at the .05 level
+($\Delta = `r t_blame$estimate[1] - t_blame$estimate[2]`,
+t(`r t_blame$parameter`) = `r t_blame$statistic`,
+p = `r t_blame$p.value`,
+95\% \text{CI} = [`r t_blame$conf.int[1]`, `r t_blame$conf.int[2]`]$)
 
 ## Study 2a
 
