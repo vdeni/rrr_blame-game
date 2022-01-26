@@ -90,9 +90,19 @@ event were compared on the amount fined and blame level assessment using a
 one-sided t-test. Following the findings of the original study, we assumed
 that reading the agentive description of the event would lead to a higher
 fine and higher assessed blame level; this direction was also posited in the
-one-sided t-tests.
+one-sided t-tests. Also, as a manipulation check, participants were asked to
+rate the extent to which the subject of the described event played an active
+role in starting the fire. Groups were compared on those assessments using
+a two-sided t-test.
 
 ```{r s1a-t-test}
+t_active <- t.test(assess_active_role ~ experimental_situation,
+                   d_s1a,
+                   alternative = 'two.sided',
+                   var.equal = T,
+                   paired = F,
+                   confidence.interval = .95)
+
 t_fine <- t.test(assess_fine ~ experimental_situation,
                  d_s1a,
                  alternative = 'greater',
@@ -108,16 +118,23 @@ t_blame <- t.test(assess_blame ~ experimental_situation,
                   confidence.interval = .95)
 ```
 
+Comparing the assessment of the subject's activity,
+we obtain a t-test that is significant at the .05 level
+($\Delta_{ag-nonag} = `r t_active$estimate[1] - t_active$estimate[2]`,
+t(`r t_active$parameter`) = `r t_active$statistic`,
+p = `r t_active$p.value`,
+95\% \text{CI} = [`r t_active$conf.int[1]`, `r t_active$conf.int[2]`]$)
+
 Comparing the amounts fined by the two groups, we obtain a t-test that is not
 significant at the .05 level
-($\Delta = `r t_fine$estimate[1] - t_fine$estimate[2]` \text{HRK},
+($\Delta_{ag-nonag} = `r t_fine$estimate[1] - t_fine$estimate[2]` \text{HRK},
 t(`r t_fine$parameter`) = `r t_fine$statistic`,
 p = `r t_fine$p.value`,
 95\% \text{CI} = [`r t_fine$conf.int[1]`, `r t_fine$conf.int[2]`]$)
 
 Comparing the level of blame assessed by the two groups, we obtain a t-test
 that is significant at the .05 level
-($\Delta = `r t_blame$estimate[1] - t_blame$estimate[2]`,
+($\Delta_{ag-nonag} = `r t_blame$estimate[1] - t_blame$estimate[2]`,
 t(`r t_blame$parameter`) = `r t_blame$statistic`,
 p = `r t_blame$p.value`,
 95\% \text{CI} = [`r t_blame$conf.int[1]`, `r t_blame$conf.int[2]`]$)
