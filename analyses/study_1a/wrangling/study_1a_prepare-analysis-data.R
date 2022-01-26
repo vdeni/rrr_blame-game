@@ -26,3 +26,8 @@ d_s1a %<>%
            !is.na(assess_fine) & !is.na(assess_blame))
 
 .d_s1a_nas <- .d_s1a_nstart - .d_s1a_ngthan - nrow(d_s1a)
+
+d_s1a %<>%
+    dplyr::mutate(.,
+                  dplyr::across('experimental_situation',
+                                as.factor))

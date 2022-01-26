@@ -92,6 +92,36 @@ that reading the agentive description of the event would lead to a higher
 fine and higher assessed blame level; this direction was also posited in the
 one-sided t-tests.
 
+```{r t-test}
+t_fine <- t.test(assess_fine ~ experimental_situation,
+                 d_s1a,
+                 alternative = 'greater',
+                 var.equal = T,
+                 paired = F,
+                 confidence.interval = .95)
+
+t_blame <- t.test(assess_blame ~ experimental_situation,
+                  d_s1a,
+                  alternative = 'greater',
+                  var.equal = T,
+                  paired = F,
+                  confidence.interval = .95)
+```
+
+Comparing the amounts fined by the two groups, we obtain a t-test that is not
+significant at the .05 level
+($\Delta = `r t_fine$estimate[1] - t_fine$estimate[2]` \text{HRK},
+t(`r t_fine$parameter`) = `r t_fine$statistic`,
+p = `r t_fine$p.value`,
+95\% \text{CI} = [`r t_fine$conf.int[1]`, `r t_fine$conf.int[2]`]$)
+
+Comparing the level of blame assessed by the two groups, we obtain a t-test
+that is significant at the .05 level
+($\Delta = `r t_blame$estimate[1] - t_blame$estimate[2]`,
+t(`r t_blame$parameter`) = `r t_blame$statistic`,
+p = `r t_blame$p.value`,
+95\% \text{CI} = [`r t_blame$conf.int[1]`, `r t_blame$conf.int[2]`]$)
+
 ## Study 1b
 
 ## Study 2a
