@@ -65,7 +65,8 @@ source(here::here('analyses',
                             assessment,
                             experimental_situation) %>%
     dplyr::summarise(.,
-                     m = mean(value))
+                     m = mean(value),
+                     stdev = sd(value))
 
 s1Plot(.p_data,
        .summary)
@@ -111,6 +112,17 @@ t(`r t_active$parameter`) = `r t_active$statistic`,
 p = `r t_active$p.value`,
 95\% \text{CI} = [`r t_active$conf.int[1]`, `r t_active$conf.int[2]`]$)
 
+The mean fine assigned by the participants who read the agentive description
+of the event was
+`r filter(.summary, assessment == 'fine' &
+experimental_situation == 'agentive') %>% pull(m)` HRK
+(SD = `r filter(.summary, assessment == 'fine' &
+experimental_situation == 'agentive') %>% pull(stdev)`), and the mean fine
+assigned by the participants who read the nonagentive description was
+`r filter(.summary, assessment == 'fine' &
+experimental_situation == 'nonagentive') %>% pull(m)` HRK
+(SD = `r filter(.summary, assessment == 'fine' &
+experimental_situation == 'nonagentive') %>% pull(stdev)`).
 Comparing the amounts fined by the two groups, we obtain a t-test that is not
 significant at the .05 level
 ($\Delta_{ag-nonag} = `r t_fine$estimate[1] - t_fine$estimate[2]` \text{HRK},
@@ -118,6 +130,17 @@ t(`r t_fine$parameter`) = `r t_fine$statistic`,
 p = `r t_fine$p.value`,
 95\% \text{CI} = [`r t_fine$conf.int[1]`, `r t_fine$conf.int[2]`]$)
 
+The mean level of blame assigned by the participants who read the agentive
+description of the event was
+`r filter(.summary, assessment == 'blame' &
+experimental_situation == 'agentive') %>% pull(m)`
+(SD = `r filter(.summary, assessment == 'blame' &
+experimental_situation == 'agentive') %>% pull(stdev)`), and the mean blame
+assigned by the participants who read the nonagentive description was
+`r filter(.summary, assessment == 'blame' &
+experimental_situation == 'nonagentive') %>% pull(m)`
+(SD = `r filter(.summary, assessment == 'blame' &
+experimental_situation == 'nonagentive') %>% pull(stdev)`).
 Comparing the level of blame assessed by the two groups, we obtain a t-test
 that is significant at the .05 level
 ($\Delta_{ag-nonag} = `r t_blame$estimate[1] - t_blame$estimate[2]`,
@@ -148,7 +171,8 @@ source(here::here('analyses',
                             assessment,
                             experimental_situation) %>%
     dplyr::summarise(.,
-                     m = mean(value))
+                     m = mean(value),
+                     stdev = sd(value))
 
 s1Plot(.p_data,
        .summary)
@@ -191,6 +215,17 @@ t(`r t_active$parameter`) = `r t_active$statistic`,
 p = `r t_active$p.value`,
 95\% \text{CI} = [`r t_active$conf.int[1]`, `r t_active$conf.int[2]`]$)
 
+The mean fine assigned by the participants who read the agentive description
+of the event was
+`r filter(.summary, assessment == 'fine' &
+experimental_situation == 'agentive') %>% pull(m)` USD
+(SD = `r filter(.summary, assessment == 'fine' &
+experimental_situation == 'agentive') %>% pull(stdev)`), and the mean fine
+assigned by the participants who read the nonagentive description was
+`r filter(.summary, assessment == 'fine' &
+experimental_situation == 'nonagentive') %>% pull(m)` USD
+(SD = `r filter(.summary, assessment == 'fine' &
+experimental_situation == 'nonagentive') %>% pull(stdev)`).
 Comparing the amounts fined by the two groups, we obtain a t-test that is
 significant at the .05 level
 ($\Delta_{ag-nonag} = `r t_fine$estimate[1] - t_fine$estimate[2]` \text{USD},
@@ -198,6 +233,17 @@ t(`r t_fine$parameter`) = `r t_fine$statistic`,
 p = `r t_fine$p.value`,
 95\% \text{CI} = [`r t_fine$conf.int[1]`, `r t_fine$conf.int[2]`]$)
 
+The mean level of blame assigned by the participants who read the agentive
+description of the event was
+`r filter(.summary, assessment == 'blame' &
+experimental_situation == 'agentive') %>% pull(m)`
+(SD = `r filter(.summary, assessment == 'blame' &
+experimental_situation == 'agentive') %>% pull(stdev)`), and the mean blame
+assigned by the participants who read the nonagentive description was
+`r filter(.summary, assessment == 'blame' &
+experimental_situation == 'nonagentive') %>% pull(m)`
+(SD = `r filter(.summary, assessment == 'blame' &
+experimental_situation == 'nonagentive') %>% pull(stdev)`).
 Comparing the level of blame assessed by the two groups, we obtain a t-test
 that is significant at the .05 level
 ($\Delta_{ag-nonag} = `r t_blame$estimate[1] - t_blame$estimate[2]`,
