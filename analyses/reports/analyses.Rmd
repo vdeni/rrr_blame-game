@@ -315,7 +315,8 @@ source(here::here('analyses',
                             agency,
                             blame_level) %>%
     dplyr::summarise(.,
-                     m = mean(assess_fine))
+                     m = mean(assess_fine),
+                     stdev = sd(assess_fine))
 
 s2Plot(d_s2a,
        .summary)
@@ -337,6 +338,10 @@ anova_fine <- aov(lm(assess_fine ~ agency * blame_level,
 anova_fine <- anova_fine[[1]]
 
 rownames(anova_fine) <- trimws(rownames(anova_fine))
+```
+
+```{r s2a-table}
+s2Table(.summary)
 ```
 
 The groups formed by different combinations of agency and stated level of blame
@@ -394,7 +399,8 @@ source(here::here('analyses',
                             agency,
                             blame_level) %>%
     dplyr::summarise(.,
-                     m = mean(assess_fine))
+                     m = mean(assess_fine),
+                     stdev = sd(assess_fine))
 
 s2Plot(d_s2b,
        .summary)
@@ -422,6 +428,10 @@ The groups formed by different combinations of agency and stated level of blame
 were compared using indepenten-samples two-way ANOVAs. As in Studies 1a and 1b,
 there was a manipulation check asking the parcitipants to rate to which extent
 the subject of the described event played an active role in starting the fire.
+
+```{r s2b-table}
+s2Table(.summary)
+```
 
 Comparing the participants' assessment of the subject's activity, we find
 a significant effect of agency

@@ -53,3 +53,35 @@ s1Table <- function(.d_summary,
 
     return(knitr::kable(.table))
 }
+
+s2Table <- function(.d_summary) {
+    .digits <- 3
+
+    .out <- .d_summary %>%
+    dplyr::mutate(.,
+                  dplyr::across('stdev',
+                                ~paste0('(',
+                                        as.character(round(.x,
+                                                           .digits)),
+                                        ')')))
+
+    .out %<>%
+        mutate(.,
+               across('m',
+                      round,
+                      .digits))
+
+    .out %<>%
+        tidyr::unite(.,
+                     col = 'mstdev',
+                     'm',
+                     'stdev',
+                     sep = ' ',
+                     remove = T)
+
+    colnames(.out) <- c('Agency',
+                        'Assigned blame',
+                        'Mean (SD)')
+
+    return(knitr::kable(.out))
+}
