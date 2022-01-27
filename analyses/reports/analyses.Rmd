@@ -19,8 +19,8 @@ knitr::opts_chunk$set(device = 'png',
                       dpi = 300,
                       echo = F,
                       message = F,
-                      fig.height = 8,
-                      fig.width = 8 * 9 / 16)
+                      fig.width = 8,
+                      fig.height = 8 * 9 / 16)
 
 options(scipen = 5,
         digits = 3)
@@ -361,4 +361,3 @@ and a nonsignificant interaction
 `r anova_fine[rownames(anova_fine) == 'Residuals', 'Df']`) =
 `r anova_fine[rownames(anova_fine) == 'agency:blame_level', 'F value']`,
 p = `r anova_fine[rownames(anova_fine) == 'agency:blame_level', 'Pr(>F)']`$),
-

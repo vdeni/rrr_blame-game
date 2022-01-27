@@ -26,3 +26,8 @@ d_s2b %<>%
            !is.na(assess_fine))
 
 .d_s2b_nas <- .d_s2b_nstart - .d_s2b_ngthan - nrow(d_s2b)
+
+d_s2b %<>%
+    dplyr::mutate(.,
+                  dplyr::across('blame_level',
+                                as.factor))

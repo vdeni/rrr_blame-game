@@ -67,19 +67,20 @@ s2Plot <- function(raw_data,
                    summary_data) {
     ggplot2::ggplot(raw_data,
                     aes(x = blame_level,
-                        y = assess_fine)) +
-        ggplot2::facet_wrap('agency',
-                            strip.position = 'right',
-                            nrow = 2) +
+                        y = assess_fine,
+                        shape = agency)) +
         ggplot2::geom_point(size = 1.5,
-                            alpha = .4,
-                            position = ggplot2::position_jitter(width = .25,
+                            alpha = 1,
+                            position = ggplot2::position_jitter(width = .35,
                                                                 height = 0)) +
         geom_point(inherit.aes = F,
                    data = summary_data,
                    aes(x = blame_level,
-                       y = m),
-                   shape = 4,
+                       y = m,
+                       shape = agency),
                    stroke = 1,
-                   size = 3)
+                   size = 3,
+                   show.legend = F) +
+        ggplot2::scale_shape_manual(values = c('agentive' = 0,
+                                               'nonagentive' = 2))
 }
