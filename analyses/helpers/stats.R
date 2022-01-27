@@ -34,3 +34,12 @@ getCohenD <- function(group1,
 
         return((m1 - m2) / sd_pooled)
 }
+
+getEtaSquared <- function(.anova_table,
+                          .effect) {
+        ss_between <- .anova_table[.effect, 'Sum Sq']
+
+        ss_total <- sum(.anova_table[, 'Sum Sq'])
+
+        return(ss_between / ss_total)
+}

@@ -310,7 +310,7 @@ source(here::here('analyses',
                   'study_2a_prepare-analysis-data.R'))
 ```
 
-```{r s2a-plot-assessments, fig.cap='Individual responses to the proposed fine and stated level of blame (jittered horizontally). The X-es represent each group\'s mean value.'}
+```{r s2a-plot-assessments, fig.cap='Individual responses to the proposed fine and stated level of blame (jittered horizontally). The large markers represent each group\'s mean value.'}
 .summary <- dplyr::group_by(d_s2a,
                             agency,
                             blame_level) %>%
@@ -372,18 +372,21 @@ a nonsignificant effect of agency
 ($F(`r anova_fine[rownames(anova_fine) == 'agency', 'Df']`,
 `r anova_fine[rownames(anova_fine) == 'Residuals', 'Df']`) =
 `r anova_fine[rownames(anova_fine) == 'agency', 'F value']`,
-p = `r anova_fine[rownames(anova_fine) == 'agency', 'Pr(>F)']`$),
+p = `r anova_fine[rownames(anova_fine) == 'agency', 'Pr(>F)']`,
+\eta^2 = `r getEtaSquared(anova_fine, 'agency')`$),
 a significant effect of assigned level of blame
 ($F(`r anova_fine[rownames(anova_fine) == 'blame_level', 'Df']`,
 `r anova_fine[rownames(anova_fine) == 'Residuals', 'Df']`) =
 `r anova_fine[rownames(anova_fine) == 'blame_level', 'F value']`,
 p =
-`r anova_fine[rownames(anova_fine) == 'blame_level', 'Pr(>F)']`$),
+`r anova_fine[rownames(anova_fine) == 'blame_level', 'Pr(>F)']`,
+\eta^2 = `r getEtaSquared(anova_fine, 'blame_level')`$),
 and a nonsignificant interaction
 ($F(`r anova_fine[rownames(anova_fine) == 'agency:blame_level', 'Df']`,
 `r anova_fine[rownames(anova_fine) == 'Residuals', 'Df']`) =
 `r anova_fine[rownames(anova_fine) == 'agency:blame_level', 'F value']`,
-p = `r anova_fine[rownames(anova_fine) == 'agency:blame_level', 'Pr(>F)']`$),
+p = `r anova_fine[rownames(anova_fine) == 'agency:blame_level', 'Pr(>F)']`,
+\eta^2 = `r getEtaSquared(anova_fine, 'agency:blame_level')`$),
 
 ## Study 2b
 
@@ -394,7 +397,7 @@ source(here::here('analyses',
                   'study_2b_prepare-analysis-data.R'))
 ```
 
-```{r s2b-plot-assessments, fig.cap='Individual responses to the proposed fine and stated level of blame (jittered horizontally). The X-es represent each group\'s mean value.'}
+```{r s2b-plot-assessments, fig.cap='Individual responses to the proposed fine and stated level of blame (jittered horizontally). The large markers represent each group\'s mean value.'}
 .summary <- dplyr::group_by(d_s2b,
                             agency,
                             blame_level) %>%
@@ -456,15 +459,18 @@ a significant effect of agency
 ($F(`r anova_fine[rownames(anova_fine) == 'agency', 'Df']`,
 `r anova_fine[rownames(anova_fine) == 'Residuals', 'Df']`) =
 `r anova_fine[rownames(anova_fine) == 'agency', 'F value']`,
-p = `r anova_fine[rownames(anova_fine) == 'agency', 'Pr(>F)']`$),
+p = `r anova_fine[rownames(anova_fine) == 'agency', 'Pr(>F)']`,
+\eta^2 = `r getEtaSquared(anova_fine, 'agency')`$),
 a significant effect of assigned level of blame
 ($F(`r anova_fine[rownames(anova_fine) == 'blame_level', 'Df']`,
 `r anova_fine[rownames(anova_fine) == 'Residuals', 'Df']`) =
 `r anova_fine[rownames(anova_fine) == 'blame_level', 'F value']`,
 p =
-`r anova_fine[rownames(anova_fine) == 'blame_level', 'Pr(>F)']`$),
+`r anova_fine[rownames(anova_fine) == 'blame_level', 'Pr(>F)']`,
+\eta^2 = `r getEtaSquared(anova_fine, 'blame_level')`$),
 and a nonsignificant interaction
 ($F(`r anova_fine[rownames(anova_fine) == 'agency:blame_level', 'Df']`,
 `r anova_fine[rownames(anova_fine) == 'Residuals', 'Df']`) =
 `r anova_fine[rownames(anova_fine) == 'agency:blame_level', 'F value']`,
-p = `r anova_fine[rownames(anova_fine) == 'agency:blame_level', 'Pr(>F)']`$),
+p = `r anova_fine[rownames(anova_fine) == 'agency:blame_level', 'Pr(>F)']`,
+\eta^2 = `r getEtaSquared(anova_fine, 'agency:blame_level')`$),
