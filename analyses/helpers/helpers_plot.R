@@ -44,7 +44,7 @@ s1Plot <- function(raw_data,
                     aes(x = experimental_situation,
                         y = value)) +
         ggplot2::facet_wrap('assessment',
-                            strip.position = 'right',
+                            strip.position = 'left',
                             scales = 'free_y',
                             nrow = 2) +
         ggplot2::geom_point(size = 1.5,
