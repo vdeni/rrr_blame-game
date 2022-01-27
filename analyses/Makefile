@@ -77,5 +77,7 @@ reports/%.docx:\
 	$(S1B_WRAN)study_1b_prepare-analysis-data.R\
 	$(S2A_WRAN)study_2a_prepare-analysis-data.R\
 	$(S2B_WRAN)study_2b_prepare-analysis-data.R\
-	helpers/helpers_plot.R
+	helpers/plots.R\
+	helpers/stats.R\
+	helpers/tables.R
 	Rscript -e 'rmarkdown::render("$<")'

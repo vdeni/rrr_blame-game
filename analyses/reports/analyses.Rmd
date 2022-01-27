@@ -14,6 +14,8 @@ library(dplyr)
 library(magrittr)
 library(ggplot2)
 library(tidyr)
+library(knitr)
+library(glue)
 
 knitr::opts_chunk$set(device = 'png',
                       dpi = 300,
@@ -37,7 +39,15 @@ ggplot2::theme_update(strip.background = ggplot2::element_rect(fill = 'grey'),
 
 source(here('analyses',
             'helpers',
-            'helpers_plot.R'))
+            'plots.R'))
+
+source(here('analyses',
+            'helpers',
+            'stats.R'))
+
+source(here('analyses',
+            'helpers',
+            'tables.R'))
 ```
 
 # Analyses
@@ -97,12 +107,32 @@ t_fine <- t.test(assess_fine ~ experimental_situation,
                  paired = F,
                  confidence.interval = .95)
 
+.d_groups <- extractCohenDSamples(d_s1a,
+                                  'fine')
+
+d_fine <- getCohenD(.d_groups[[1]],
+                    .d_groups[[2]])
+
 t_blame <- t.test(assess_blame ~ experimental_situation,
                   d_s1a,
                   alternative = 'greater',
                   var.equal = T,
                   paired = F,
                   confidence.interval = .95)
+
+.d_groups <- extractCohenDSamples(d_s1a,
+                                  'blame')
+
+d_blame <- getCohenD(.d_groups[[1]],
+                    .d_groups[[2]])
+```
+
+```{r s1a-table}
+s1Table(.summary,
+        d_fine,
+        d_blame,
+        t_fine,
+        t_blame)
 ```
 
 Comparing the assessment of the subject's activity,
