@@ -124,7 +124,7 @@ t_blame <- t.test(assess_blame ~ experimental_situation,
                                   'blame')
 
 d_blame <- getCohenD(.d_groups[[1]],
-                    .d_groups[[2]])
+                     .d_groups[[2]])
 ```
 
 ```{r s1a-table}
@@ -230,12 +230,32 @@ t_fine <- t.test(assess_fine ~ experimental_situation,
                  paired = F,
                  confidence.interval = .95)
 
+.d_groups <- extractCohenDSamples(d_s1b,
+                                  'fine')
+
+d_fine <- getCohenD(.d_groups[[1]],
+                    .d_groups[[2]])
+
 t_blame <- t.test(assess_blame ~ experimental_situation,
                   d_s1b,
                   alternative = 'greater',
                   var.equal = T,
                   paired = F,
                   confidence.interval = .95)
+
+.d_groups <- extractCohenDSamples(d_s1b,
+                                  'blame')
+
+d_blame <- getCohenD(.d_groups[[1]],
+                     .d_groups[[2]])
+```
+
+```{r s1b-table}
+s1Table(.summary,
+        d_fine,
+        d_blame,
+        t_fine,
+        t_blame)
 ```
 
 Comparing the assessment of the subject's activity,
