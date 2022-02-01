@@ -100,6 +100,12 @@ t_active <- t.test(assess_active_role ~ experimental_situation,
                    paired = F,
                    confidence.interval = .95)
 
+.d_groups <- extractCohenDSamples(d_s1a,
+                                  'active_role')
+
+d_manip <- getCohenD(.d_groups[[1]],
+                     .d_groups[[2]])
+
 t_fine <- t.test(assess_fine ~ experimental_situation,
                  d_s1a,
                  alternative = 'greater',
@@ -135,12 +141,34 @@ s1Table(.summary,
         t_blame)
 ```
 
+```{r s1a-manip-check-describe}
+.summary_manip <- d_s1a %>%
+    group_by(.,
+             experimental_situation) %>%
+    summarise(.,
+              m = mean(assess_active_role,
+                       na.rm = T),
+              stdev = sd(assess_active_role,
+                         na.rm = T))
+```
+
 Comparing the assessment of the subject's activity,
 we obtain a t-test that is significant at the .05 level
 ($\Delta_{ag-nonag} = `r t_active$estimate[1] - t_active$estimate[2]`,
 t(`r t_active$parameter`) = `r t_active$statistic`,
 p = `r t_active$p.value`,
-95\% \text{CI} = [`r t_active$conf.int[1]`, `r t_active$conf.int[2]`]$)
+95\% \text{CI} = [`r t_active$conf.int[1]`, `r t_active$conf.int[2]`],
+d = `r d_manip`$).
+The mean assessment of the subject's activity given by the participants who
+read the agentive description of the event was
+`r filter(.summary_manip, experimental_situation == 'agentive') %>% pull(m)`
+(SD = `r filter(.summary_manip, experimental_situation == 'agentive') %>%
+pull(stdev)`).
+The mean assessment of the subject's activity given by the participants who
+read the nonagentive description of the event was
+`r filter(.summary_manip, experimental_situation == 'nonagentive') %>% pull(m)`
+(SD = `r filter(.summary_manip, experimental_situation == 'nonagentive') %>%
+pull(stdev)`).
 
 The mean fine assigned by the participants who read the agentive description
 of the event was

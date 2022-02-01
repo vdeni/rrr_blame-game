@@ -21,13 +21,17 @@ extractCohenDSamples <- function(.data,
 
 getCohenD <- function(group1,
                       group2) {
-        m1 <- mean(group1)
-        sd1 <- sd(group1)
-        n1 <- length(group1)
+        m1 <- mean(group1,
+                   na.rm = T)
+        sd1 <- sd(group1,
+                  na.rm = T)
+        n1 <- length(group1[!is.na(group1)])
 
-        m2 <- mean(group2)
-        sd2 <- sd(group2)
-        n2 <- length(group2)
+        m2 <- mean(group2,
+                   na.rm = T)
+        sd2 <- sd(group2,
+                  na.rm = T)
+        n2 <- length(group2[!is.na(group2)])
 
         sd_pooled <- sqrt(((n1 - 1) * sd1^2 + (n2 - 1) * sd2^2) /
                           (n1 + n2 - 2))
