@@ -44,3 +44,4 @@ vignettes/*.pdf
 **/.~lock*
 
 analyses/reports/*.docx
+analyses/reports/*_files

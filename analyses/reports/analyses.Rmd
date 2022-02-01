@@ -4,12 +4,9 @@ output:
 ---
 
 ```{r setup, echo=F, message=F, warning=F, results='hide'}
+renv::activate(here::here('analyses'))
+
 library(here)
-
-setwd(here::here('analyses'))
-
-renv::activate()
-
 library(dplyr)
 library(magrittr)
 library(ggplot2)
@@ -397,6 +394,17 @@ rownames(anova_fine) <- trimws(rownames(anova_fine))
 ```
 
 ```{r s2a-table}
+.summary <- dplyr::group_by(d_s2a,
+                            agency,
+                            blame_level) %>%
+    dplyr::summarize(.,
+                     'm_fine' = mean(assess_fine),
+                     'stdev_fine' = sd(assess_fine),
+                     'm_activity' = mean(assess_active_role,
+                                         na.rm = T),
+                     'stdev_activity' = sd(assess_active_role,
+                                           na.rm = T))
+
 s2Table(.summary)
 ```
 
@@ -489,6 +497,17 @@ there was a manipulation check asking the parcitipants to rate to which extent
 the subject of the described event played an active role in starting the fire.
 
 ```{r s2b-table}
+.summary <- dplyr::group_by(d_s2b,
+                            agency,
+                            blame_level) %>%
+    dplyr::summarize(.,
+                     'm_fine' = mean(assess_fine),
+                     'stdev_fine' = sd(assess_fine),
+                     'm_activity' = mean(assess_active_role,
+                                         na.rm = T),
+                     'stdev_activity' = sd(assess_active_role,
+                                           na.rm = T))
+
 s2Table(.summary)
 ```
 

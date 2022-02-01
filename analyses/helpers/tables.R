@@ -57,31 +57,46 @@ s1Table <- function(.d_summary,
 s2Table <- function(.d_summary) {
     .digits <- 3
 
-    .out <- .d_summary %>%
-    dplyr::mutate(.,
-                  dplyr::across('stdev',
-                                ~paste0('(',
-                                        as.character(round(.x,
-                                                           .digits)),
-                                        ')')))
+    # browser()
 
-    .out %<>%
-        mutate(.,
-               across('m',
-                      round,
-                      .digits))
+    .d_summary <- dplyr::mutate(.d_summary,
+                                dplyr::across(matches('stdev'),
+                                              ~paste0('(',
+                                                      round(.x,
+                                                            .digits),
+                                                      ')')))
 
-    .out %<>%
-        tidyr::unite(.,
-                     col = 'mstdev',
-                     'm',
-                     'stdev',
-                     sep = ' ',
-                     remove = T)
+    .d_summary <- mutate(.d_summary,
+                         across(matches('^m'),
+                                round,
+                                .digits))
 
-    colnames(.out) <- c('Agency',
-                        'Assigned blame',
-                        'Mean (SD)')
+    .d_summary$activity <- glue::glue_data(.d_summary,
+                                           '{m_activity} {stdev_activity}')
 
-    return(knitr::kable(.out))
+    .d_summary %<>%
+        dplyr::select(.,
+                      -c('m_activity',
+                         'stdev_activity'))
+
+    .d_summary$fine <- glue::glue_data(.d_summary,
+                                       '{m_fine} {stdev_fine}')
+
+    .d_summary %<>%
+        dplyr::select(.,
+                      -c('m_fine',
+                         'stdev_fine'))
+
+    .d_summary <- dplyr::select(.d_summary,
+                                agency,
+                                blame_level,
+                                activity,
+                                fine)
+
+    colnames(.d_summary) <- c('Agency',
+                              'Assigned blame',
+                              'Mean activity assessment (SD)',
+                              'Mean fine (SD)')
+
+    return(knitr::kable(.d_summary))
 }
