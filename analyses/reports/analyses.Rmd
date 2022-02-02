@@ -183,7 +183,7 @@ significant at the .05 level
 ($\Delta_{ag-nonag} = `r t_fine$estimate[1] - t_fine$estimate[2]` \text{HRK},
 t(`r t_fine$parameter`) = `r t_fine$statistic`,
 p = `r t_fine$p.value`,
-95\% \text{CI} = [`r t_fine$conf.int[1]`, `r t_fine$conf.int[2]`]$)
+95\% \text{CI} = [`r t_fine$conf.int[1]`, `r t_fine$conf.int[2]`]$).
 
 The mean level of blame assigned by the participants who read the agentive
 description of the event was
@@ -201,7 +201,7 @@ that is significant at the .05 level
 ($\Delta_{ag-nonag} = `r t_blame$estimate[1] - t_blame$estimate[2]`,
 t(`r t_blame$parameter`) = `r t_blame$statistic`,
 p = `r t_blame$p.value`,
-95\% \text{CI} = [`r t_blame$conf.int[1]`, `r t_blame$conf.int[2]`]$)
+95\% \text{CI} = [`r t_blame$conf.int[1]`, `r t_blame$conf.int[2]`]$).
 
 ## Study 1b
 
@@ -334,7 +334,7 @@ significant at the .05 level
 ($\Delta_{ag-nonag} = `r t_fine$estimate[1] - t_fine$estimate[2]` \text{USD},
 t(`r t_fine$parameter`) = `r t_fine$statistic`,
 p = `r t_fine$p.value`,
-95\% \text{CI} = [`r t_fine$conf.int[1]`, `r t_fine$conf.int[2]`]$)
+95\% \text{CI} = [`r t_fine$conf.int[1]`, `r t_fine$conf.int[2]`]$).
 
 The mean level of blame assigned by the participants who read the agentive
 description of the event was
@@ -409,8 +409,8 @@ s2Table(.summary)
 ```
 
 The groups formed by different combinations of agency and stated level of blame
-were compared using indepenten-samples two-way ANOVAs. As in Studies 1a and 1b,
-there was a manipulation check asking the parcitipants to rate to which extent
+were compared using independent-samples two-way ANOVAs. As in Studies 1a and 1b,
+there was a manipulation check asking the participants to rate to which extent
 the subject of the described event played an active role in starting the fire.
 
 Comparing the participants' assessment of the subject's activity, we find
@@ -418,18 +418,21 @@ a nonsignificant effect of agency
 ($F(`r anova_active[rownames(anova_active) == 'agency', 'Df']`,
 `r anova_active[rownames(anova_active) == 'Residuals', 'Df']`) =
 `r anova_active[rownames(anova_active) == 'agency', 'F value']`,
-p = `r anova_active[rownames(anova_active) == 'agency', 'Pr(>F)']`$),
+p = `r anova_active[rownames(anova_active) == 'agency', 'Pr(>F)']`,
+\eta^2 = `r getEtaSquared(anova_active, 'agency')`$),
 a significant effect of assigned level of blame
 ($F(`r anova_active[rownames(anova_active) == 'blame_level', 'Df']`,
 `r anova_active[rownames(anova_active) == 'Residuals', 'Df']`) =
 `r anova_active[rownames(anova_active) == 'blame_level', 'F value']`,
 p =
-`r anova_active[rownames(anova_active) == 'blame_level', 'Pr(>F)']`$),
+`r anova_active[rownames(anova_active) == 'blame_level', 'Pr(>F)']`,
+\eta^2 = `r getEtaSquared(anova_active, 'blame_level')`$),
 and a nonsignificant interaction
 ($F(`r anova_active[rownames(anova_active) == 'agency:blame_level', 'Df']`,
 `r anova_active[rownames(anova_active) == 'Residuals', 'Df']`) =
 `r anova_active[rownames(anova_active) == 'agency:blame_level', 'F value']`,
-p = `r anova_active[rownames(anova_active) == 'agency:blame_level', 'Pr(>F)']`$),
+p = `r anova_active[rownames(anova_active) == 'agency:blame_level', 'Pr(>F)']`,
+\eta^2 = `r getEtaSquared(anova_active, 'agency:blame_level')`$).
 
 Comparing the participants' assigned fines, we find
 a nonsignificant effect of agency
@@ -492,8 +495,8 @@ rownames(anova_fine) <- trimws(rownames(anova_fine))
 ```
 
 The groups formed by different combinations of agency and stated level of blame
-were compared using indepenten-samples two-way ANOVAs. As in Studies 1a and 1b,
-there was a manipulation check asking the parcitipants to rate to which extent
+were compared using independent-samples two-way ANOVAs. As in Studies 1a and 1b,
+there was a manipulation check asking the participants to rate to which extent
 the subject of the described event played an active role in starting the fire.
 
 ```{r s2b-table}
@@ -516,18 +519,21 @@ a significant effect of agency
 ($F(`r anova_active[rownames(anova_active) == 'agency', 'Df']`,
 `r anova_active[rownames(anova_active) == 'Residuals', 'Df']`) =
 `r anova_active[rownames(anova_active) == 'agency', 'F value']`,
-p = `r anova_active[rownames(anova_active) == 'agency', 'Pr(>F)']`$),
+p = `r anova_active[rownames(anova_active) == 'agency', 'Pr(>F)']`,
+\eta^2 = `r getEtaSquared(anova_active, 'agency')`$),
 a significant effect of assigned level of blame
 ($F(`r anova_active[rownames(anova_active) == 'blame_level', 'Df']`,
 `r anova_active[rownames(anova_active) == 'Residuals', 'Df']`) =
 `r anova_active[rownames(anova_active) == 'blame_level', 'F value']`,
 p =
-`r anova_active[rownames(anova_active) == 'blame_level', 'Pr(>F)']`$),
+`r anova_active[rownames(anova_active) == 'blame_level', 'Pr(>F)']`,
+\eta^2 = `r getEtaSquared(anova_active, 'blame_level')`$),
 and a nonsignificant interaction
 ($F(`r anova_active[rownames(anova_active) == 'agency:blame_level', 'Df']`,
 `r anova_active[rownames(anova_active) == 'Residuals', 'Df']`) =
 `r anova_active[rownames(anova_active) == 'agency:blame_level', 'F value']`,
-p = `r anova_active[rownames(anova_active) == 'agency:blame_level', 'Pr(>F)']`$),
+p = `r anova_active[rownames(anova_active) == 'agency:blame_level', 'Pr(>F)']`,
+\eta^2 = `r getEtaSquared(anova_active, 'agency:blame_level')`$).
 
 Comparing the participants' assigned fines, we find
 a significant effect of agency
