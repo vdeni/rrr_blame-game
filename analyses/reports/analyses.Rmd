@@ -183,7 +183,8 @@ significant at the .05 level
 ($\Delta_{ag-nonag} = `r t_fine$estimate[1] - t_fine$estimate[2]` \text{HRK},
 t(`r t_fine$parameter`) = `r t_fine$statistic`,
 p = `r t_fine$p.value`,
-95\% \text{CI} = [`r t_fine$conf.int[1]`, `r t_fine$conf.int[2]`]$).
+95\% \text{CI} = [`r t_fine$conf.int[1]`, `r t_fine$conf.int[2]`],
+d = `r d_fine`$).
 
 The mean level of blame assigned by the participants who read the agentive
 description of the event was
@@ -201,7 +202,8 @@ that is significant at the .05 level
 ($\Delta_{ag-nonag} = `r t_blame$estimate[1] - t_blame$estimate[2]`,
 t(`r t_blame$parameter`) = `r t_blame$statistic`,
 p = `r t_blame$p.value`,
-95\% \text{CI} = [`r t_blame$conf.int[1]`, `r t_blame$conf.int[2]`]$).
+95\% \text{CI} = [`r t_blame$conf.int[1]`, `r t_blame$conf.int[2]`],
+d = `r d_blame`$).
 
 ## Study 1b
 
