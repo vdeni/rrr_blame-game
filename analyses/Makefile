@@ -11,6 +11,8 @@ S2A_WRAN=study_2a/wrangling/
 S2B_DATA=study_2b/data/
 S2B_WRAN=study_2b/wrangling/
 
+PLOTS=reports/plots/
+
 # >>>>> recipes
 
 ## >>>>> abstract
@@ -32,7 +34,8 @@ data:\
 
 reports:\
 	reports/methods.docx\
-	reports/analyses.docx
+	reports/analyses.docx\
+	reports/analyses_plots_create.R
 
 ## >>>>> concrete
 $(S1A_DATA)clean/study_1a.csv:\
@@ -81,3 +84,12 @@ reports/%.docx:\
 	helpers/stats.R\
 	helpers/tables.R
 	Rscript -e 'rmarkdown::render("$<")'
+
+reports/analyses_plots_create.R:\
+	reports/analyses.Rmd\
+	reports/analyses_plots_extract.sed\
+	reports/analyses_plots_save.py
+	Rscript -e 'knitr::purl("$<", output = "$@")'
+	sed -i -f reports/analyses_plots_extract.sed -n $@
+	python reports/analyses_plots_save.py
+	mv tmp.R $@

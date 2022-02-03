@@ -59,7 +59,9 @@ s1Plot <- function(raw_data,
                    stroke = 1,
                    size = 3) +
         ggplot2::scale_y_continuous(limits = setLimitsHRK,
-                                    breaks = setBreaksMajor)
+                                    breaks = setBreaksMajor) +
+        labs(x = 'Experimental situation',
+             y = '')
 }
 
 # s2
