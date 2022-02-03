@@ -45,3 +45,5 @@ vignettes/*.pdf
 
 analyses/reports/*.docx
 analyses/reports/*_files
+analyses/reports/plots
+analyses/Rplots.pdf

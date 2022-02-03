@@ -23,8 +23,9 @@ with open('tmp.R',
         elif not (line.startswith('s1Plot') or line.startswith('s2Plot')) and\
                 found is True:
             outfile.write(line)
-            outfile.write(f'''ggsave(filename = "plots/{names.pop()}",
+            outfile.write(f'''ggsave(filename = "reports/plots/{names.pop()}",
                                      device = "png",
-                                     dpi = 300)
+                                     dpi = 300,
+                                     bg = '#ffffff')
                           ''')
             found = False

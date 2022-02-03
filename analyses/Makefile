@@ -13,6 +13,9 @@ S2B_WRAN=study_2b/wrangling/
 
 PLOTS=reports/plots/
 
+PLOTS_TARGETS= $(PLOTS)s1a_comparison.png $(PLOTS)s1b_comparison.png\
+	$(PLOTS)s2a_comparison.png $(PLOTS)s2b_comparison.png
+
 # >>>>> recipes
 
 ## >>>>> abstract
@@ -24,7 +27,8 @@ PLOTS=reports/plots/
 
 all:\
 	data\
-	reports
+	reports\
+	plots
 
 data:\
 	$(S1A_DATA)clean/study_1a.csv\
@@ -36,6 +40,9 @@ reports:\
 	reports/methods.docx\
 	reports/analyses.docx\
 	reports/analyses_plots_create.R
+
+plots:\
+	$(PLOTS_TARGETS)
 
 ## >>>>> concrete
 $(S1A_DATA)clean/study_1a.csv:\
@@ -93,3 +100,8 @@ reports/analyses_plots_create.R:\
 	sed -i -f reports/analyses_plots_extract.sed -n $@
 	python reports/analyses_plots_save.py
 	mv tmp.R $@
+
+$(PLOTS_TARGETS):\
+	reports/analyses_plots_create.R
+	mkdir -p reports/plots
+	Rscript $<

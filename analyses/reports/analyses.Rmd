@@ -29,8 +29,7 @@ options(scipen = 5,
 
 ggplot2::theme_set(theme_minimal())
 
-ggplot2::theme_update(strip.background = ggplot2::element_rect(fill = 'grey'),
-                      strip.placement = 'outside',
+ggplot2::theme_update(strip.placement = 'outside',
                       panel.spacing.y = unit(x = 20,
                                              units = 'pt'))
 

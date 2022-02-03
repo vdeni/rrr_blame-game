@@ -24,8 +24,7 @@ options(scipen = 5,
 
 ggplot2::theme_set(theme_minimal())
 
-ggplot2::theme_update(strip.background = ggplot2::element_rect(fill = 'grey'),
-                      strip.placement = 'outside',
+ggplot2::theme_update(strip.placement = 'outside',
                       panel.spacing.y = unit(x = 20,
                                              units = 'pt'))
 
@@ -68,9 +67,10 @@ source(here::here('analyses',
 
 s1Plot(.p_data,
        .summary)
-ggsave(filename = "plots/s1a_comparison.png",
+ggsave(filename = "reports/plots/s1a_comparison.png",
                                      device = "png",
-                                     dpi = 300)
+                                     dpi = 300,
+                                     bg = '#ffffff')
                           
 
 ## ----s1a-t-test---------------------------------------------------------------
@@ -100,9 +100,10 @@ source(here::here('analyses',
 
 s1Plot(.p_data,
        .summary)
-ggsave(filename = "plots/s1b_comparison.png",
+ggsave(filename = "reports/plots/s1b_comparison.png",
                                      device = "png",
-                                     dpi = 300)
+                                     dpi = 300,
+                                     bg = '#ffffff')
                           
 
 ## ----s1b-t-test---------------------------------------------------------------
@@ -123,9 +124,10 @@ source(here::here('analyses',
 
 s2Plot(d_s2a,
        .summary)
-ggsave(filename = "plots/s2a_comparison.png",
+ggsave(filename = "reports/plots/s2a_comparison.png",
                                      device = "png",
-                                     dpi = 300)
+                                     dpi = 300,
+                                     bg = '#ffffff')
                           
 
 ## ----s2a-anova----------------------------------------------------------------
@@ -146,9 +148,10 @@ source(here::here('analyses',
 
 s2Plot(d_s2b,
        .summary)
-ggsave(filename = "plots/s2b_comparison.png",
+ggsave(filename = "reports/plots/s2b_comparison.png",
                                      device = "png",
-                                     dpi = 300)
+                                     dpi = 300,
+                                     bg = '#ffffff')
                           
 
 ## ----s2b-anova----------------------------------------------------------------

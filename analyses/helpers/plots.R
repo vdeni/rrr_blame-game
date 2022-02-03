@@ -46,7 +46,9 @@ s1Plot <- function(raw_data,
         ggplot2::facet_wrap('assessment',
                             strip.position = 'left',
                             scales = 'free_y',
-                            nrow = 2) +
+                            nrow = 2,
+                            labeller = ggplot2::as_labeller(c('blame' = 'Blame',
+                                                              'fine' = 'Fine'))) +
         ggplot2::geom_point(size = 1.5,
                             alpha = .4,
                             position = ggplot2::position_jitter(width = .25,
@@ -60,6 +62,8 @@ s1Plot <- function(raw_data,
                    size = 3) +
         ggplot2::scale_y_continuous(limits = setLimitsHRK,
                                     breaks = setBreaksMajor) +
+        ggplot2::scale_x_discrete(labels = c('agentive' = 'Agentive',
+                                             'nonagentive' = 'Nonagentive')) +
         labs(x = 'Experimental situation',
              y = '')
 }
