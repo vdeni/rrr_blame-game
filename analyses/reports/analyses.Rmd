@@ -365,9 +365,9 @@ source(here::here('analyses',
 ```
 
 ```{r s2a-plot-assessments, fig.cap='Individual responses to the proposed fine and stated level of blame (jittered horizontally). The large markers represent each group\'s mean value.'}
-summary <- dplyr::group_by(d_s2a,
-                           agency,
-                           blame_level) %>%
+.summary <- dplyr::group_by(d_s2a,
+                            agency,
+                            blame_level) %>%
     dplyr::summarise(.,
                      m = mean(assess_fine),
                      stdev = sd(assess_fine))

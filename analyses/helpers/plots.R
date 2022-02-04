@@ -104,6 +104,7 @@ s2Plot <- function(raw_data,
                                     labels = c('agentive' = 'Agentive',
                                                'nonagentive' = 'Nonagentive'),
                                     name = 'Agency') +
+        scale_y_continuous(breaks = setBreaksMajor) +
         labs(x = 'Assigned level of blame',
              y = 'Fine') +
         ggplot2::theme(panel.grid.major.x = element_blank())
