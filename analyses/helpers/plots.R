@@ -35,6 +35,16 @@ setBreaksMajor <- function (x) {
     }
 }
 
+setBreaksMinor <- function(x) {
+    if (max(x) > 8) {
+        return(seq(0,
+                   max(x),
+                   by = 250))
+    } else {
+        return(NULL)
+    }
+}
+
 # plotting functions
 
 # s1
@@ -61,11 +71,13 @@ s1Plot <- function(raw_data,
                    stroke = 1,
                    size = 3) +
         ggplot2::scale_y_continuous(limits = setLimitsHRK,
-                                    breaks = setBreaksMajor) +
+                                    breaks = setBreaksMajor,
+                                    minor_breaks = setBreaksMinor) +
         ggplot2::scale_x_discrete(labels = c('agentive' = 'Agentive',
                                              'nonagentive' = 'Nonagentive')) +
-        labs(x = 'Experimental situation',
-             y = '')
+        ggplot2::labs(x = 'Experimental situation',
+                      y = '') +
+        ggplot2::theme(panel.grid.major.x = element_blank())
 }
 
 # s2
@@ -88,5 +100,11 @@ s2Plot <- function(raw_data,
                    size = 3,
                    show.legend = F) +
         ggplot2::scale_shape_manual(values = c('agentive' = 0,
-                                               'nonagentive' = 2))
+                                               'nonagentive' = 2),
+                                    labels = c('agentive' = 'Agentive',
+                                               'nonagentive' = 'Nonagentive'),
+                                    name = 'Agency') +
+        labs(x = 'Assigned level of blame',
+             y = 'Fine') +
+        ggplot2::theme(panel.grid.major.x = element_blank())
 }

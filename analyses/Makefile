@@ -23,7 +23,8 @@ PLOTS_TARGETS= $(PLOTS)s1a_comparison.png $(PLOTS)s1b_comparison.png\
 .PHONY:\
 	all\
 	data\
-	reports
+	reports\
+	plots
 
 all:\
 	data\

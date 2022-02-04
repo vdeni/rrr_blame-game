@@ -26,6 +26,9 @@ with open('tmp.R',
             outfile.write(f'''ggsave(filename = "reports/plots/{names.pop()}",
                                      device = "png",
                                      dpi = 300,
-                                     bg = '#ffffff')
+                                     bg = '#ffffff',
+                                     width = 8,
+                                     height = 8 * 9 / 16,
+                                     units = 'in')
                           ''')
             found = False

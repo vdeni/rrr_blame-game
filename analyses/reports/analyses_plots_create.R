@@ -70,7 +70,10 @@ s1Plot(.p_data,
 ggsave(filename = "reports/plots/s1a_comparison.png",
                                      device = "png",
                                      dpi = 300,
-                                     bg = '#ffffff')
+                                     bg = '#ffffff',
+                                     width = 8,
+                                     height = 8 * 9 / 16,
+                                     units = 'in')
                           
 
 ## ----s1a-t-test---------------------------------------------------------------
@@ -103,7 +106,10 @@ s1Plot(.p_data,
 ggsave(filename = "reports/plots/s1b_comparison.png",
                                      device = "png",
                                      dpi = 300,
-                                     bg = '#ffffff')
+                                     bg = '#ffffff',
+                                     width = 8,
+                                     height = 8 * 9 / 16,
+                                     units = 'in')
                           
 
 ## ----s1b-t-test---------------------------------------------------------------
@@ -127,7 +133,10 @@ s2Plot(d_s2a,
 ggsave(filename = "reports/plots/s2a_comparison.png",
                                      device = "png",
                                      dpi = 300,
-                                     bg = '#ffffff')
+                                     bg = '#ffffff',
+                                     width = 8,
+                                     height = 8 * 9 / 16,
+                                     units = 'in')
                           
 
 ## ----s2a-anova----------------------------------------------------------------
@@ -151,7 +160,10 @@ s2Plot(d_s2b,
 ggsave(filename = "reports/plots/s2b_comparison.png",
                                      device = "png",
                                      dpi = 300,
-                                     bg = '#ffffff')
+                                     bg = '#ffffff',
+                                     width = 8,
+                                     height = 8 * 9 / 16,
+                                     units = 'in')
                           
 
 ## ----s2b-anova----------------------------------------------------------------
