@@ -13,6 +13,8 @@ library(ggplot2)
 library(tidyr)
 library(knitr)
 library(glue)
+library(ggdist)
+library(ggpubr)
 
 knitr::opts_chunk$set(device = 'png',
                       dpi = 300,
