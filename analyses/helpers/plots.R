@@ -68,7 +68,8 @@ s1Plot <- function(raw_data,
                                  shape = 23,
                                  fatten = 4,
                                  size = .6,
-                                 fill = 'black') +
+                                 fill = 'black',
+                                 position = ggplot2::position_nudge(x = .1127)) +
         ggplot2::geom_point(size = 1.5,
                             alpha = .5,
                             shape = 1,
@@ -110,7 +111,8 @@ s1Plot <- function(raw_data,
                                  shape = 23,
                                  fatten = 4,
                                  size = .6,
-                                 fill = 'black') +
+                                 fill = 'black',
+                                 position = ggplot2::position_nudge(x = .113)) +
         ggplot2::geom_point(size = 1.5,
                             alpha = .5,
                             shape = 1,
