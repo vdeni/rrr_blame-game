@@ -8,6 +8,8 @@ library(ggplot2)
 library(tidyr)
 library(knitr)
 library(glue)
+library(ggdist)
+library(ggpubr)
 
 knitr::opts_chunk$set(device = 'png',
                       dpi = 300,
@@ -63,7 +65,24 @@ source(here::here('analyses',
                             experimental_situation) %>%
     dplyr::summarise(.,
                      m = mean(value),
-                     stdev = sd(value))
+                     stdev = sd(value),
+                     q1 = quantile(value,
+                                   probs = .25),
+                     q3 = quantile(value,
+                                   probs = .75))
+
+. <- filter(.p_data,
+       assessment == 'blame') %>%
+    group_by(.,
+             experimental_situation,
+             value) %>%
+    summarise(n = n()) %>%
+    group_by(experimental_situation) %>%
+    summarise(n = max(n))
+
+.summary <- dplyr::left_join(.summary,
+                             .,
+                             by = 'experimental_situation')
 
 s1Plot(.p_data,
        .summary)
@@ -93,13 +112,29 @@ source(here::here('analyses',
                         names_to = 'assessment',
                         values_to = 'value')
 
-
 .summary <- dplyr::group_by(.p_data,
                             assessment,
                             experimental_situation) %>%
     dplyr::summarise(.,
                      m = mean(value),
-                     stdev = sd(value))
+                     stdev = sd(value),
+                     q1 = quantile(value,
+                                   probs = .25),
+                     q3 = quantile(value,
+                                   probs = .75))
+
+. <- filter(.p_data,
+       assessment == 'blame') %>%
+    group_by(.,
+             experimental_situation,
+             value) %>%
+    summarise(n = n()) %>%
+    group_by(experimental_situation) %>%
+    summarise(n = max(n))
+
+.summary <- dplyr::left_join(.summary,
+                             .,
+                             by = 'experimental_situation')
 
 s1Plot(.p_data,
        .summary)
@@ -126,7 +161,11 @@ source(here::here('analyses',
                             blame_level) %>%
     dplyr::summarise(.,
                      m = mean(assess_fine),
-                     stdev = sd(assess_fine))
+                     stdev = sd(assess_fine),
+                     q1 = quantile(assess_fine,
+                                   probs = .25),
+                     q3 = quantile(assess_fine,
+                                   probs = .75))
 
 s2Plot(d_s2a,
        .summary)
@@ -153,7 +192,11 @@ source(here::here('analyses',
                             blame_level) %>%
     dplyr::summarise(.,
                      m = mean(assess_fine),
-                     stdev = sd(assess_fine))
+                     stdev = sd(assess_fine),
+                     q1 = quantile(assess_fine,
+                                   probs = .25),
+                     q3 = quantile(assess_fine,
+                                   probs = .75))
 
 s2Plot(d_s2b,
        .summary)
