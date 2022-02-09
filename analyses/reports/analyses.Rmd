@@ -76,6 +76,19 @@ source(here::here('analyses',
                      m = mean(value),
                      stdev = sd(value))
 
+. <- filter(.p_data,
+       assessment == 'blame') %>%
+    group_by(.,
+             experimental_situation,
+             value) %>%
+    summarise(n = n()) %>%
+    group_by(experimental_situation) %>%
+    summarise(n = max(n))
+
+.summary <- dplyr::left_join(.summary,
+                             .,
+                             by = 'experimental_situation')
+
 s1Plot(.p_data,
        .summary)
 ```
