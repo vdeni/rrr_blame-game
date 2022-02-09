@@ -59,6 +59,12 @@ s1Plot <- function(raw_data,
                              alpha = .7,
                              slab_color = 'black',
                              size = 1) +
+        ggplot2::geom_point(size = 1.5,
+                            alpha = .5,
+                            shape = 1,
+                            position = ggplot2::position_jitter(width = .10,
+                                                                height = 0,
+                                                                seed = 1)) +
         ggplot2::geom_pointrange(inherit.aes = F,
                                  data = s_p1,
                                  aes(x = experimental_situation,
@@ -69,12 +75,6 @@ s1Plot <- function(raw_data,
                                  fatten = 4,
                                  size = .6,
                                  fill = 'black') +
-        ggplot2::geom_point(size = 1.5,
-                            alpha = .5,
-                            shape = 1,
-                            position = ggplot2::position_jitter(width = .10,
-                                                                height = 0,
-                                                                seed = 1)) +
         ggplot2::scale_x_discrete(labels = .labs) +
         ggplot2::labs(x = 'Experimental situation',
                       y = 'Fine') +
@@ -151,6 +151,12 @@ s2Plot <- function(raw_data,
                              n = 3e4,
                              slab_alpha = .5,
                              size = 1) +
+        ggplot2::geom_point(size = 1.5,
+                            alpha = .6,
+                            show.legend = F,
+                            position = position_jitter(seed = 2,
+                                                       height = 0,
+                                                       width = .10)) +
         ggplot2::geom_pointrange(inherit.aes = F,
                                  data = summary_data,
                                  aes(x = blame_level,
@@ -163,15 +169,7 @@ s2Plot <- function(raw_data,
                                  shape = 23,
                                  fatten = 4,
                                  size = .6,
-                                 position = position_dodge(width = .15)
-                                 ) +
-        ggplot2::geom_point(size = 1.5,
-                            alpha = .6,
-                            show.legend = F,
-                            position = position_jitter(seed = 2,
-                                                       height = 0,
-                                                       width = .10)
-                            ) +
+                                 position = position_dodge(width = .15)) +
         ggplot2::scale_color_grey(start = .1,
                                   end = .5,
                                   guide = 'none') +
