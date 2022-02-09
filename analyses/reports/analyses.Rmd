@@ -507,7 +507,10 @@ source(here::here('analyses',
                             blame_level) %>%
     dplyr::summarise(.,
                      m = mean(assess_fine),
-                     stdev = sd(assess_fine))
+                     q1 = quantile(assess_fine,
+                                   probs = .25),
+                     q3 = quantile(assess_fine,
+                                   probs = .75))
 
 s2Plot(d_s2b,
        .summary)
