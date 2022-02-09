@@ -111,8 +111,7 @@ s1Plot <- function(raw_data,
                                  shape = 23,
                                  fatten = 4,
                                  size = .6,
-                                 fill = 'black',
-                                 position = ggplot2::position_nudge(x = .113)) +
+                                 fill = 'black') +
         ggplot2::geom_point(size = 1.5,
                             alpha = .5,
                             shape = 1,
@@ -137,29 +136,54 @@ s1Plot <- function(raw_data,
 # s2
 s2Plot <- function(raw_data,
                    summary_data) {
+    .labs <- c('agentive' = 'Agentive',
+               'nonagentive' = 'Nonagentive')
+
     ggplot2::ggplot(raw_data,
                     aes(x = blame_level,
                         y = assess_fine,
-                        shape = agency)) +
+                        fill = agency,
+                        color = agency)) +
+        ggdist::stat_halfeye(geom = 'slab',
+                             width = .70,
+                             justification = -.3,
+                             adjust = 1,
+                             limits = c(NA, NA),
+                             n = 3e4,
+                             slab_alpha = .5,
+                             size = 1) +
+        ggplot2::geom_pointrange(inherit.aes = F,
+                                 data = summary_data,
+                                 aes(x = blame_level,
+                                     y = m,
+                                     ymin = q1,
+                                     ymax = q3,
+                                     fill = agency,
+                                     color = agency),
+                                 show.legend = F,
+                                 shape = 23,
+                                 fatten = 4,
+                                 size = .6,
+                                 position = position_dodge(width = .15)
+                                 ) +
         ggplot2::geom_point(size = 1.5,
-                            alpha = 1,
-                            position = ggplot2::position_jitter(width = .35,
-                                                                height = 0)) +
-        geom_point(inherit.aes = F,
-                   data = summary_data,
-                   aes(x = blame_level,
-                       y = m,
-                       shape = agency),
-                   stroke = 1,
-                   size = 3,
-                   show.legend = F) +
-        ggplot2::scale_shape_manual(values = c('agentive' = 0,
-                                               'nonagentive' = 2),
-                                    labels = c('agentive' = 'Agentive',
-                                               'nonagentive' = 'Nonagentive'),
-                                    name = 'Agency') +
+                            alpha = .6,
+                            show.legend = F,
+                            position = position_jitter(seed = 2,
+                                                       height = 0,
+                                                       width = .10)
+                            ) +
+        ggplot2::scale_color_grey(start = .1,
+                                  end = .5,
+                                  guide = 'none') +
+        ggplot2::scale_fill_grey(start = .1,
+                                 end = .5,
+                                 name = 'Description',
+                                 labels = .labs) +
         scale_y_continuous(breaks = setBreaksMajorDV) +
-        labs(x = 'Assigned level of blame',
-             y = 'Fine') +
-        ggplot2::theme(panel.grid.major.x = element_blank())
-}
+            labs(x = 'Assigned level of blame',
+                 y = 'Fine') +
+        ggplot2::theme(panel.grid.major.x = element_blank(),
+                       legend.position = c(.9,
+                                           .9))
+    }
