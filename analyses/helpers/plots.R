@@ -85,7 +85,7 @@ s1Plot <- function(raw_data,
                                                                 seed = 1)) +
         ggplot2::scale_x_discrete(labels = .labs) +
         ggplot2::labs(x = 'Experimental situation',
-                      y = '') +
+                      y = 'Fine') +
         ggplot2::theme(panel.grid.major.x = element_blank())
         ggplot2::scale_y_continuous(limits = setLimitsFine,
                                     breaks = setBreaksMajorDV,
@@ -117,9 +117,15 @@ s1Plot <- function(raw_data,
                             show.legend = F) +
         ggplot2::scale_fill_grey(name = 'Experimental situation',
                                  labels = .labs) +
-        ggplot2::scale_color_grey()
+        ggplot2::scale_color_grey() +
+        ggplot2::theme(legend.position = c(.9,
+                                           .8))
 
-    return(p2)
+    p_out <- ggpubr::ggarrange(p1,
+                               p2,
+                               nrow = 2)
+
+    return(p_out)
 }
 
 # s2
