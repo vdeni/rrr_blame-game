@@ -74,7 +74,10 @@ source(here::here('analyses',
                             experimental_situation) %>%
     dplyr::summarise(.,
                      m = mean(value),
-                     stdev = sd(value))
+                     q1 = quantile(value,
+                                   probs = .25),
+                     q3 = quantile(value,
+                                   probs = .75))
 
 . <- filter(.p_data,
        assessment == 'blame') %>%

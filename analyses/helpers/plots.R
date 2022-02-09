@@ -1,5 +1,5 @@
 # helpers for plotting
-setLimitsFine <- function(x) {
+setLimitsDV <- function(x) {
     if (max(x) > 7) {
         .upper <- ceiling(max(x) / 500) * 500
 
@@ -9,13 +9,6 @@ setLimitsFine <- function(x) {
         return(c(1,
                  7))
     }
-}
-
-setLimitsCount <- function(x) {
-    .upper <- ceiling(max(x) / 50) * 50
-    
-    return(c(0,
-             .upper))
 }
 
 setBreaksMajorDV <- function (x) {
@@ -40,18 +33,6 @@ setBreaksMinorDV <- function(x) {
     }
 }
 
-setBreaksMajorCount <- function(x) {
-    return(seq(0,
-               max(x),
-               by = 50))
-}
-
-setBreaksMinorCount <- function(x) {
-    return(seq(0,
-               max(x),
-               by = 25))
-}
-
 # plotting functions
 
 # s1
@@ -72,11 +53,22 @@ s1Plot <- function(raw_data,
         ggdist::stat_halfeye(geom = 'slab',
                              width = .25,
                              justification = -.5,
-                             adjust = .5, n = 3e4,
+                             adjust = .5,
+                             limits = c(NA, NA),
+                             n = 3e4,
                              alpha = .7,
                              slab_color = 'black',
                              size = 1) +
-        ggplot2::geom_boxplot(width = .10) +
+        ggplot2::geom_pointrange(inherit.aes = F,
+                                 data = s_p1,
+                                 aes(x = experimental_situation,
+                                     y = m,
+                                     ymin = q1,
+                                     ymax = q3),
+                                 shape = 23,
+                                 fatten = 4,
+                                 size = .6,
+                                 fill = 'black') +
         ggplot2::geom_point(size = 1.5,
                             alpha = .5,
                             shape = 1,
@@ -86,8 +78,8 @@ s1Plot <- function(raw_data,
         ggplot2::scale_x_discrete(labels = .labs) +
         ggplot2::labs(x = 'Experimental situation',
                       y = 'Fine') +
-        ggplot2::theme(panel.grid.major.x = element_blank())
-        ggplot2::scale_y_continuous(limits = setLimitsFine,
+        ggplot2::theme(panel.grid.major.x = element_blank()) +
+        ggplot2::scale_y_continuous(limits = setLimitsDV,
                                     breaks = setBreaksMajorDV,
                                     minor_breaks = setBreaksMinorDV)
 
@@ -98,31 +90,43 @@ s1Plot <- function(raw_data,
                    assessment == 'blame')
 
     p2 <- ggplot2::ggplot(d_p2,
-                          aes(fill = experimental_situation,
-                              x = value)) +
-        ggplot2::geom_bar(position = 'dodge') +
-        ggplot2::scale_x_continuous(breaks = setBreaksMajorDV,
-                                    minor_breaks = setBreaksMinorDV) +
-        scale_y_continuous(limits = setLimitsCount,
-                           breaks = setBreaksMajorCount,
-                           minor_breaks = setBreaksMinorCount) +
-        ggplot2::labs(x = 'Assessed level of blame',
-                      y = 'Count') +
-        ggplot2::geom_point(data = s_p2,
-                            aes(x = m,
-                                y = n + 5,
-                                color = experimental_situation),
-                            size = 4,
-                            shape = 23,
-                            show.legend = F) +
-        ggplot2::scale_fill_grey(name = 'Experimental situation',
-                                 labels = .labs) +
-        ggplot2::scale_color_grey() +
-        ggplot2::theme(legend.position = c(.9,
-                                           .8))
+                          aes(x = experimental_situation,
+                              y = value)) +
+        ggdist::stat_halfeye(geom = 'slab',
+                             width = .25,
+                             justification = -.5,
+                             adjust = 1,
+                             limits = c(NA, NA),
+                             n = 3e4,
+                             alpha = .7,
+                             slab_color = 'black',
+                             size = 1) +
+        ggplot2::geom_pointrange(inherit.aes = F,
+                                 data = s_p2,
+                                 aes(x = experimental_situation,
+                                     y = m,
+                                     ymin = q1,
+                                     ymax = q3),
+                                 shape = 23,
+                                 fatten = 4,
+                                 size = .6,
+                                 fill = 'black') +
+        ggplot2::geom_point(size = 1.5,
+                            alpha = .5,
+                            shape = 1,
+                            position = ggplot2::position_jitter(width = .10,
+                                                                height = 0,
+                                                                seed = 1)) +
+        ggplot2::labs(x = '',
+                      y = 'Blame') +
+        ggplot2::theme(panel.grid.major.x = element_blank()) +
+        ggplot2::scale_x_discrete(labels = .labs) +
+        ggplot2::scale_y_continuous(breaks = setBreaksMajorDV,
+                                    limits = setLimitsDV,
+                                    minor_breaks = setBreaksMinorDV)
 
-    p_out <- ggpubr::ggarrange(p1,
-                               p2,
+    p_out <- ggpubr::ggarrange(p2,
+                               p1,
                                nrow = 2)
 
     return(p_out)
