@@ -151,7 +151,7 @@ s2Plot <- function(raw_data,
                'nonagentive' = 'Nonagentive')
 
     .viridis_begin <- .5
-    .viridis_end <- .7
+    .viridis_end <- .95
 
     ggplot2::ggplot(raw_data,
                     aes(x = blame_level,

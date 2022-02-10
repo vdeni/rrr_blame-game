@@ -96,7 +96,8 @@ reports/%.docx:\
 reports/analyses_plots_create.R:\
 	reports/analyses.Rmd\
 	reports/analyses_plots_extract.sed\
-	reports/analyses_plots_save.py
+	reports/analyses_plots_save.py\
+	helpers/plots.R
 	Rscript -e 'knitr::purl("$<", output = "$@")'
 	sed -i -f reports/analyses_plots_extract.sed -n $@
 	python reports/analyses_plots_save.py
