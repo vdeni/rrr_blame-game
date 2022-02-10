@@ -10,6 +10,7 @@ library(knitr)
 library(glue)
 library(ggdist)
 library(ggpubr)
+library(viridis)
 
 knitr::opts_chunk$set(device = 'png',
                       dpi = 300,
