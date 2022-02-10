@@ -41,6 +41,12 @@ s1Plot <- function(raw_data,
     .labs <- c('agentive' = 'Agentive',
                'nonagentive' = 'Nonagentive')
 
+    .viridis_begin <- .5
+    .viridis_end <- .7
+    .viridis_color <- viridis::viridis(n = 1,
+                                       begin = .viridis_begin,
+                                       end = .viridis_end)
+
     s_p1 <- dplyr::filter(summary_data,
                           assessment == 'fine')
 
@@ -57,11 +63,13 @@ s1Plot <- function(raw_data,
                              limits = c(NA, NA),
                              n = 3e4,
                              alpha = .7,
-                             slab_color = 'black',
+                             slab_color = .viridis_color,
+                             slab_fill = .viridis_color,
                              size = 1) +
         ggplot2::geom_point(size = 1.5,
                             alpha = .5,
                             shape = 1,
+                            color = .viridis_color,
                             position = ggplot2::position_jitter(width = .10,
                                                                 height = 0,
                                                                 seed = 1)) +
@@ -72,9 +80,10 @@ s1Plot <- function(raw_data,
                                      ymin = q1,
                                      ymax = q3),
                                  shape = 23,
+                                 color = .viridis_color,
                                  fatten = 4,
                                  size = .6,
-                                 fill = 'black') +
+                                 fill = .viridis_color) +
         ggplot2::scale_x_discrete(labels = .labs) +
         ggplot2::labs(x = 'Experimental situation',
                       y = 'Fine') +
@@ -99,7 +108,8 @@ s1Plot <- function(raw_data,
                              limits = c(NA, NA),
                              n = 3e4,
                              alpha = .7,
-                             slab_color = 'black',
+                             slab_color = .viridis_color,
+                             slab_fill = .viridis_color,
                              size = 1) +
         ggplot2::geom_pointrange(inherit.aes = F,
                                  data = s_p2,
@@ -110,10 +120,12 @@ s1Plot <- function(raw_data,
                                  shape = 23,
                                  fatten = 4,
                                  size = .6,
-                                 fill = 'black') +
+                                 fill = .viridis_color,
+                                 color = .viridis_color) +
         ggplot2::geom_point(size = 1.5,
                             alpha = .5,
                             shape = 1,
+                            color = .viridis_color,
                             position = ggplot2::position_jitter(width = .10,
                                                                 height = 0,
                                                                 seed = 1)) +
@@ -137,6 +149,9 @@ s2Plot <- function(raw_data,
                    summary_data) {
     .labs <- c('agentive' = 'Agentive',
                'nonagentive' = 'Nonagentive')
+
+    .viridis_begin <- .5
+    .viridis_end <- .7
 
     ggplot2::ggplot(raw_data,
                     aes(x = blame_level,
@@ -170,13 +185,13 @@ s2Plot <- function(raw_data,
                                  fatten = 4,
                                  size = .6,
                                  position = position_dodge(width = .15)) +
-        ggplot2::scale_color_grey(start = .1,
-                                  end = .5,
-                                  guide = 'none') +
-        ggplot2::scale_fill_grey(start = .1,
-                                 end = .5,
-                                 name = 'Description',
-                                 labels = .labs) +
+        ggplot2::scale_color_viridis_d(begin = .viridis_begin,
+                                       end = .viridis_end,
+                                       guide = 'none') +
+        ggplot2::scale_fill_viridis_d(begin = .viridis_begin,
+                                      end = .viridis_end,
+                                      name = 'Description',
+                                      labels = .labs) +
         scale_y_continuous(breaks = setBreaksMajorDV) +
             labs(x = 'Assigned level of blame',
                  y = 'Fine') +
