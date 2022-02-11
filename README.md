@@ -2,9 +2,9 @@
 
 ## Table of contents
 
-- [General information](##general-information)
-- [Data metadata](##data-metadata)
-- [Directory structure](##directory-structure)
+- [General information](#general-information)
+- [Data metadata](#data-metadata)
+- [Directory structure](#directory-structure)
 
 ## General information
 
