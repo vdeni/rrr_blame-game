@@ -15,28 +15,75 @@ extractCohenDSamples <- function(.data,
                     paste0('assess_',
                            .dependent))
 
-    return(list(group1,
-                group2))
+    out <- data.frame('response' = c(group1,
+                                      group2),
+                      'group' = c(rep('agentive',
+                                      length(group1)),
+                                  rep('nonagentive',
+                                      length(group2))))
+
+    out$idx <- 1:nrow(out)
+
+    return(out)
 }
 
-getCohenD <- function(group1,
-                      group2) {
-        m1 <- mean(group1,
-                   na.rm = T)
-        sd1 <- sd(group1,
-                  na.rm = T)
-        n1 <- length(group1[!is.na(group1)])
+getCohenD <- function(.data,
+                      .idx) {
+        .data <- .data[.idx, ] 
 
-        m2 <- mean(group2,
-                   na.rm = T)
-        sd2 <- sd(group2,
-                  na.rm = T)
-        n2 <- length(group2[!is.na(group2)])
+        m_agentive <- .data %>%
+            filter(.,
+                   group == 'agentive') %>%
+            pull(.,
+                 response) %>%
+            mean(.,
+                 na.rm = T)
 
-        sd_pooled <- sqrt(((n1 - 1) * sd1^2 + (n2 - 1) * sd2^2) /
-                          (n1 + n2 - 2))
+        sd_agentive <- .data %>%
+            filter(.,
+                   group == 'agentive') %>%
+            pull(.,
+                 response) %>%
+            sd(.,
+               na.rm = T)
 
-        return((m1 - m2) / sd_pooled)
+        n_agentive <- .data %>%
+            filter(.,
+                   group == 'agentive') %>%
+            pull(.,
+                 response) %>%
+            na.omit(.) %>%
+            length(.)
+
+        m_nonagentive <- .data %>%
+            filter(.,
+                   group == 'nonagentive') %>%
+            pull(.,
+                 response) %>%
+            mean(.,
+                 na.rm = T)
+
+        sd_nonagentive <- .data %>%
+            filter(.,
+                   group == 'nonagentive') %>%
+            pull(.,
+                 response) %>%
+            sd(.,
+               na.rm = T)
+
+        n_nonagentive <- .data %>%
+            filter(.,
+                   group == 'nonagentive') %>%
+            pull(.,
+                 response) %>%
+            na.omit(.) %>%
+            length(.)
+
+        sd_pooled <- sqrt(((n_agentive - 1) * sd_agentive^2 +
+                           (n_nonagentive - 1) * sd_nonagentive^2) /
+                          (n_agentive + n_nonagentive - 2))
+
+        return((m_agentive - m_nonagentive) / sd_pooled)
 }
 
 getEtaSquared <- function(.anova_table,

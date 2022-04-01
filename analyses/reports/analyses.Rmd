@@ -16,6 +16,7 @@ library(glue)
 library(ggdist)
 library(ggpubr)
 library(viridis)
+library(boot)
 
 knitr::opts_chunk$set(device = 'png',
                       dpi = 300,
@@ -119,8 +120,17 @@ t_active <- t.test(assess_active_role ~ experimental_situation,
 .d_groups <- extractCohenDSamples(d_s1a,
                                   'active_role')
 
-d_manip <- getCohenD(.d_groups[[1]],
-                     .d_groups[[2]])
+set.seed(1)
+boot_d_manip <- boot::boot(.d_groups,
+                           getCohenD,
+                           R = 1e4,
+                           stype = 'i',
+                           parallel = 'multicore',
+                           ncpus = parallel::detectCores() / 2)
+
+bootci_d_manip <- boot::boot.ci(boot_d_manip,
+                                type = 'bca',
+                                index = 1)
 
 t_fine <- t.test(assess_fine ~ experimental_situation,
                  d_s1a,
@@ -132,8 +142,16 @@ t_fine <- t.test(assess_fine ~ experimental_situation,
 .d_groups <- extractCohenDSamples(d_s1a,
                                   'fine')
 
-d_fine <- getCohenD(.d_groups[[1]],
-                    .d_groups[[2]])
+boot_d_fine <- boot::boot(.d_groups,
+                          getCohenD,
+                          R = 1e4,
+                          stype = 'i',
+                          parallel = 'multicore',
+                          ncpus = parallel::detectCores() / 2)
+
+bootci_d_fine <- boot::boot.ci(boot_d_fine,
+                               type = 'bca',
+                               index = 1)
 
 t_blame <- t.test(assess_blame ~ experimental_situation,
                   d_s1a,
@@ -145,14 +163,22 @@ t_blame <- t.test(assess_blame ~ experimental_situation,
 .d_groups <- extractCohenDSamples(d_s1a,
                                   'blame')
 
-d_blame <- getCohenD(.d_groups[[1]],
-                     .d_groups[[2]])
+boot_d_blame <- boot::boot(.d_groups,
+                           getCohenD,
+                           R = 1e4,
+                           stype = 'i',
+                           parallel = 'multicore',
+                           ncpus = parallel::detectCores() / 2)
+
+bootci_d_blame <- boot::boot.ci(boot_d_blame,
+                                type = 'bca',
+                                index = 1)
 ```
 
 ```{r s1a-table}
 s1Table(.summary,
-        d_fine,
-        d_blame,
+        boot_d_fine$t0,
+        boot_d_blame$t0,
         t_fine,
         t_blame)
 ```
@@ -173,8 +199,8 @@ we obtain a t-test that is significant at the .05 level
 ($\Delta_{ag-nonag} = `r t_active$estimate[1] - t_active$estimate[2]`,
 t(`r t_active$parameter`) = `r t_active$statistic`,
 p = `r t_active$p.value`,
-95\% \text{CI} = [`r t_active$conf.int[1]`, `r t_active$conf.int[2]`],
-d = `r d_manip`$).
+d = `r boot_d_manip$t0`,
+95\% \text{CI} = [`r bootci_d_manip$bca[4]`, `r bootci_d_manip$bca[5]`]$).
 The mean assessment of the subject's activity given by the participants who
 read the agentive description of the event was
 `r filter(.summary_manip, experimental_situation == 'agentive') %>% pull(m)`
@@ -202,8 +228,8 @@ significant at the .05 level
 ($\Delta_{ag-nonag} = `r t_fine$estimate[1] - t_fine$estimate[2]` \text{HRK},
 t(`r t_fine$parameter`) = `r t_fine$statistic`,
 p = `r t_fine$p.value`,
-95\% \text{CI} = [`r t_fine$conf.int[1]`, `r t_fine$conf.int[2]`],
-d = `r d_fine`$).
+d = `r boot_d_fine$t0`,
+95\% \text{CI} = [`r bootci_d_fine$bca[4]`, `r bootci_d_fine$bca[5]`]$).
 
 The mean level of blame assigned by the participants who read the agentive
 description of the event was
@@ -221,8 +247,8 @@ that is significant at the .05 level
 ($\Delta_{ag-nonag} = `r t_blame$estimate[1] - t_blame$estimate[2]`,
 t(`r t_blame$parameter`) = `r t_blame$statistic`,
 p = `r t_blame$p.value`,
-95\% \text{CI} = [`r t_blame$conf.int[1]`, `r t_blame$conf.int[2]`],
-d = `r d_blame`$).
+d = `r boot_d_blame$t0`,
+95\% \text{CI} = [`r bootci_d_blame$bca[4]`, `r bootci_d_blame$bca[5]`]$).
 
 ## Study 1b
 
@@ -288,8 +314,16 @@ t_active <- t.test(assess_active_role ~ experimental_situation,
 .d_groups <- extractCohenDSamples(d_s1b,
                                   'active_role')
 
-d_manip <- getCohenD(.d_groups[[1]],
-                     .d_groups[[2]])
+boot_d_manip <- boot::boot(.d_groups,
+                           getCohenD,
+                           R = 1e4,
+                           stype = 'i',
+                           parallel = 'multicore',
+                           ncpus = parallel::detectCores() / 2)
+
+bootci_d_manip <- boot::boot.ci(boot_d_manip,
+                                type = 'bca',
+                                index = 1)
 
 t_fine <- t.test(assess_fine ~ experimental_situation,
                  d_s1b,
@@ -301,8 +335,16 @@ t_fine <- t.test(assess_fine ~ experimental_situation,
 .d_groups <- extractCohenDSamples(d_s1b,
                                   'fine')
 
-d_fine <- getCohenD(.d_groups[[1]],
-                    .d_groups[[2]])
+boot_d_fine <- boot::boot(.d_groups,
+                           getCohenD,
+                           R = 1e4,
+                           stype = 'i',
+                           parallel = 'multicore',
+                           ncpus = parallel::detectCores() / 2)
+
+bootci_d_fine <- boot::boot.ci(boot_d_fine,
+                               type = 'bca',
+                               index = 1)
 
 t_blame <- t.test(assess_blame ~ experimental_situation,
                   d_s1b,
@@ -314,14 +356,22 @@ t_blame <- t.test(assess_blame ~ experimental_situation,
 .d_groups <- extractCohenDSamples(d_s1b,
                                   'blame')
 
-d_blame <- getCohenD(.d_groups[[1]],
-                     .d_groups[[2]])
+boot_d_blame <- boot::boot(.d_groups,
+                           getCohenD,
+                           R = 1e4,
+                           stype = 'i',
+                           parallel = 'multicore',
+                           ncpus = parallel::detectCores() / 2)
+
+bootci_d_blame <- boot::boot.ci(boot_d_blame,
+                                type = 'bca',
+                                index = 1)
 ```
 
 ```{r s1b-table}
 s1Table(.summary,
-        d_fine,
-        d_blame,
+        boot_d_fine$t0,
+        boot_d_blame$t0,
         t_fine,
         t_blame)
 ```
@@ -342,8 +392,8 @@ we obtain a t-test that is significant at the .05 level
 ($\Delta_{ag-nonag} = `r t_active$estimate[1] - t_active$estimate[2]`,
 t(`r t_active$parameter`) = `r t_active$statistic`,
 p = `r t_active$p.value`,
-95\% \text{CI} = [`r t_active$conf.int[1]`, `r t_active$conf.int[2]`],
-d = `r d_manip`$).
+d = `r boot_d_manip$t0`,
+95\% \text{CI} = [`r bootci_d_manip$bca[4]`, `r bootci_d_manip$bca[5]`]$).
 The mean assessment of the subject's activity given by the participants who
 read the agentive description of the event was
 `r filter(.summary_manip, experimental_situation == 'agentive') %>% pull(m)`
@@ -371,7 +421,8 @@ significant at the .05 level
 ($\Delta_{ag-nonag} = `r t_fine$estimate[1] - t_fine$estimate[2]` \text{USD},
 t(`r t_fine$parameter`) = `r t_fine$statistic`,
 p = `r t_fine$p.value`,
-95\% \text{CI} = [`r t_fine$conf.int[1]`, `r t_fine$conf.int[2]`]$).
+d = `r boot_d_fine$t0`,
+95\% \text{CI} = [`r bootci_d_fine$bca[4]`, `r bootci_d_fine$bca[5]`]$).
 
 The mean level of blame assigned by the participants who read the agentive
 description of the event was
@@ -389,7 +440,8 @@ that is significant at the .05 level
 ($\Delta_{ag-nonag} = `r t_blame$estimate[1] - t_blame$estimate[2]`,
 t(`r t_blame$parameter`) = `r t_blame$statistic`,
 p = `r t_blame$p.value`,
-95\% \text{CI} = [`r t_blame$conf.int[1]`, `r t_blame$conf.int[2]`]$)
+d = `r boot_d_blame$t0`,
+95\% \text{CI} = [`r bootci_d_blame$bca[4]`, `r bootci_d_blame$bca[5]`]$)
 
 ## Study 2a
 
