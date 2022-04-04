@@ -17,6 +17,7 @@ library(ggdist)
 library(ggpubr)
 library(viridis)
 library(boot)
+library(car)
 
 knitr::opts_chunk$set(device = 'png',
                       dpi = 300,
@@ -469,21 +470,20 @@ s2Plot(d_s2a,
 ```
 
 ```{r s2a-anova}
-anova_active <- aov(lm(assess_active_role ~ agency * blame_level,
-                       d_s2a)) %>%
-    summary(.)
+.contrasts <- list(blame_level = contr.helmert,
+                   agency = contr.helmert)
 
-anova_active <- anova_active[[1]]
+anova_active <- aov(assess_active_role ~ agency * blame_level,
+                    d_s2a,
+                    contrasts = .contrasts) %>%
+    car::Anova(.,
+               type = 3)
 
-rownames(anova_active) <- trimws(rownames(anova_active))
-
-anova_fine <- aov(lm(assess_fine ~ agency * blame_level,
-                     d_s2a)) %>%
-    summary(.)
-
-anova_fine <- anova_fine[[1]]
-
-rownames(anova_fine) <- trimws(rownames(anova_fine))
+anova_fine <- aov(assess_fine ~ agency * blame_level,
+                  d_s2a,
+                  contrasts = .contrasts) %>%
+    Anova(.,
+          type = 3)
 ```
 
 ```{r s2a-table}

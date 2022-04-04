@@ -90,7 +90,8 @@ getEtaSquared <- function(.anova_table,
                           .effect) {
         ss_between <- .anova_table[.effect, 'Sum Sq']
 
-        ss_total <- sum(.anova_table[, 'Sum Sq'])
+        ss_total <- sum(.anova_table[, 'Sum Sq']) -
+            .anova_table['(Intercept)', 'Sum Sq']
 
         return(ss_between / ss_total)
 }
