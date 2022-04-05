@@ -574,21 +574,20 @@ s2Plot(d_s2b,
 ```
 
 ```{r s2b-anova}
-anova_active <- aov(lm(assess_active_role ~ agency * blame_level,
-                       d_s2b)) %>%
-    summary(.)
+.contrasts <- list(blame_level = contr.helmert,
+                   agency = contr.helmert)
 
-anova_active <- anova_active[[1]]
+anova_active <- aov(assess_active_role ~ agency * blame_level,
+                    d_s2b,
+                    contrasts = .contrasts) %>%
+    Anova(.,
+          type = 3)
 
-rownames(anova_active) <- trimws(rownames(anova_active))
-
-anova_fine <- aov(lm(assess_fine ~ agency * blame_level,
-                     d_s2b)) %>%
-    summary(.)
-
-anova_fine <- anova_fine[[1]]
-
-rownames(anova_fine) <- trimws(rownames(anova_fine))
+anova_fine <- aov(assess_fine ~ agency * blame_level,
+                  d_s2b,
+                  contrasts = .contrasts) %>%
+    Anova(.,
+          type = 3)
 ```
 
 The groups formed by different combinations of agency and stated level of blame
