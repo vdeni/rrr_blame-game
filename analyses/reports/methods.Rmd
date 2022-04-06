@@ -64,6 +64,7 @@ as women, `r .gender['man']` as men, `r .gender['other']` chose "other", and
 The median age of the participants whose data was analysed and who listed
 their age was `r median(d_s1a$age, na.rm = T)` (with a range from
 `r min(d_s1a$age, na.rm = T)` to `r max(d_s1a$age, na.rm = T)`;
+M = `r mean(d_s1a$age, na.rm = T)`, SD = `r sd(d_s1a$age, na.rm = T)`;
 N = `r sum(!is.na(d_s1a$age))`).
 
 ## Study 1b
@@ -101,6 +102,7 @@ as women, `r .gender['Male']` as men, and `r .gender['Other']` chose "other"
 The median age of the participants whose data was analysed and who listed
 their age was `r median(d_s1b$age, na.rm = T)` (with a range from
 `r min(d_s1b$age, na.rm = T)` to `r max(d_s1b$age, na.rm = T)`;
+M = `r mean(d_s1b$age, na.rm = T)`, SD = `r sd(d_s1b$age, na.rm = T)`;
 N = `r sum(!is.na(d_s1b$age))`).
 
 ## Study 2a
@@ -150,7 +152,8 @@ answer(`r sum(is.na(d_s2a$gender))` participant left the question
 unanswered).
 The median age of the participants whose data was analysed and who listed
 their age was `r median(d_s2a$age, na.rm = T)` (with a range from
-`r min(d_s2a$age, na.rm = T)` to `r max(d_s2a$age, na.rm = T)`).
+`r min(d_s2a$age, na.rm = T)` to `r max(d_s2a$age, na.rm = T)`;
+M = `r mean(d_s2a$age, na.rm = T)`, SD = `r sd(d_s2a$age, na.rm = T)`).
 
 ## Study 2b
 
@@ -196,4 +199,5 @@ and `r .gender['I prefer not to answer']` stated that they prefer not to answer
 The median age of the participants whose data was analysed and who listed
 their age was `r median(d_s2b$age, na.rm = T)` (with a range from
 `r min(d_s2b$age, na.rm = T)` to `r max(d_s2b$age, na.rm = T)`;
-N = `r sum(!is.na(d_s2b$age))`).
+N = `r sum(!is.na(d_s2b$age))`;
+M = `r mean(d_s2b$age, na.rm = T)`, SD = `r sd(d_s2b$age, na.rm = T)`).

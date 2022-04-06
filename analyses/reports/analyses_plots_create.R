@@ -11,6 +11,8 @@ library(glue)
 library(ggdist)
 library(ggpubr)
 library(viridis)
+library(boot)
+library(car)
 
 knitr::opts_chunk$set(device = 'png',
                       dpi = 300,
